@@ -120,7 +120,7 @@ var flowNodes = module.exports = {
                 .then(function() { return storage.saveFlows(cleanConfig);})
                 .then(function() { return flowNodes.stopFlows(); })
                 .then(function() { activeFlow = new Flow(config); flowNodes.startFlows();})
-                .then(function() { gen.createNode(activeFlow)});
+                .then(function() { gen.createNode(config)});
 
             //在此完成代码生成
         } else {
