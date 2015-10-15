@@ -265,6 +265,9 @@ function Flow(config) {
     
 }
 
+
+
+//return activeFlow
 Flow.prototype.parseConfig = function(config) {
     var i;
     var nodeConfig;
@@ -272,14 +275,14 @@ Flow.prototype.parseConfig = function(config) {
     
     this.config = config;
     
-    this.allNodes = {};
+    this.allNodes = {};//所有node
     
-    this.nodes = {};
+    this.nodes = {};//除了Tab和subflows
     this.subflows = {};
     
-    this.configNodes = {};
+    this.configNodes = {};//目前不清楚
     
-    var unknownTypes = {};
+    var unknownTypes = {};//类型未知的节点
     
     for (i=0;i<this.config.length;i++) {
         nodeConfig = this.config[i];
@@ -297,8 +300,7 @@ Flow.prototype.parseConfig = function(config) {
     //console.log("Known subflows:",Object.keys(this.subflows));
     for (i=0;i<this.config.length;i++) {
         nodeConfig = this.config[i];
-        
-        
+
         nodeType = nodeConfig.type;
         
         if (nodeConfig.credentials) {

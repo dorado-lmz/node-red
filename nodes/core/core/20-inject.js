@@ -74,13 +74,13 @@ module.exports = function(RED) {
             if (RED.settings.verbose) { this.log(RED._("inject.stopped")); }
             delete this.cronjob;
         }
-    }
+    };
 
     RED.httpAdmin.post("/inject/:id", RED.auth.needsPermission("inject.write"), function(req,res) {
         var node = RED.nodes.getNode(req.params.id);
         if (node != null) {
             try {
-                node.receive();
+                node.receive();//从flow中获取当前节点,判断msg对象是否为空,
                 res.send(200);
             } catch(err) {
                 res.send(500);

@@ -27,6 +27,7 @@ var redUtil = require("../util");
 var storage = null;
 var settings = null;
 var deprecated = require("./deprecated");
+var gen = require("../gen/gen");
 
 var activeFlow = null;
 
@@ -118,7 +119,10 @@ var flowNodes = module.exports = {
             return credentialSavePromise
                 .then(function() { return storage.saveFlows(cleanConfig);})
                 .then(function() { return flowNodes.stopFlows(); })
-                .then(function() { activeFlow = new Flow(config); flowNodes.startFlows();});
+                .then(function() { activeFlow = new Flow(config); flowNodes.startFlows();})
+                .then(function() { gen.createNode(activeFlow)});
+
+            //在此完成代码生成
         } else {
             return credentialSavePromise
                 .then(function() { return storage.saveFlows(cleanConfig);})
