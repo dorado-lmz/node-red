@@ -14,23 +14,23 @@
   limitations under the License.
 -->
 
-<script type="text/x-red" data-template-name="catch">
+<script type="text/x-red" data-template-name="status">
     <div class="form-row">
-        <label style="width: auto" for="node-input-scope" data-i18n="catch.label.source"></label>
+        <label style="width: auto" for="node-input-scope" data-i18n="status.label.source"></label>
         <select id="node-input-scope-select">
-            <option value="all" data-i18n="catch.scope.all"></option>
-            <option value="target" data-i18n="catch.scope.selected"></options>
+            <option value="all" data-i18n="status.scope.all"></option>
+            <option value="target" data-i18n="status.scope.selected"></options>
         </select>
     </div>
     <div class="form-row node-input-target-row" style="display: none;">
-        <div id="node-input-catch-target-container-div" style="position: relative;   box-sizing: border-box; border-radius: 2px; height: 180px;  border: 1px solid #ccc;overflow:hidden; ">
+        <div id="node-input-status-target-container-div" style="position: relative;   box-sizing: border-box; border-radius: 2px; height: 180px;  border: 1px solid #ccc;overflow:hidden; ">
             <div style="box-sizing: border-box; line-height: 20px; font-size: 0.8em; border-bottom: 1px solid #ddd; height: 20px;">
-              <input type="checkbox" data-i18n="[title]catch.label.selectAll" id="node-input-target-node-checkbox-all" style="width: 30px; margin: 0 2px 1px 2px;">
-              <div style="display: inline-block;"><a id="node-input-target-sort-label" href="#" data-i18n="[title]catch.label.sortByLabel"><span data-i18n="catch.label.node"></span> <i class="node-input-catch-sort-label-a fa fa-caret-down"></i><i class="node-input-catch-sort-label-d fa fa-caret-up"></i></a></div>
-              <div style="position: absolute; right: 10px; width: 50px; display: inline-block; text-align: right;"><a id="node-input-target-sort-type" href="#" data-i18n="[title]catch.label.sortByType"><i class="node-input-catch-sort-sublabel-a fa fa-caret-down"></i><i class="node-input-catch-sort-sublabel-d fa fa-caret-up"></i> <span data-i18n="catch.label.type"></span></a></div>
+              <input type="checkbox" data-i18n="[title]status.label.selectAll" id="node-input-target-node-checkbox-all" style="width: 30px; margin: 0 2px 1px 2px;">
+              <div style="display: inline-block;"><a id="node-input-target-sort-label" href="#" data-i18n="[title]status.label.sortByLabel"><span data-i18n="status.label.node"></span> <i class="node-input-status-sort-label-a fa fa-caret-down"></i><i class="node-input-status-sort-label-d fa fa-caret-up"></i></a></div>
+              <div style="position: absolute; right: 10px; width: 50px; display: inline-block; text-align: right;"><a id="node-input-target-sort-type" href="#" data-i18n="[title]status.label.sortByType"><i class="node-input-status-sort-sublabel-a fa fa-caret-down"></i><i class="node-input-status-sort-sublabel-d fa fa-caret-up"></i> <span data-i18n="status.label.type"></span></a></div>
             </div>
             <div style="background: #fbfbfb; box-sizing: border-box; position:absolute; top:20px;bottom:0;left:0px;right:0px; overflow-y: scroll; overflow-x: hidden;">
-                <ul id="node-input-catch-target-container" style=" list-style-type:none; margin: 0;"></ul>
+                <ul id="node-input-status-target-container" style=" list-style-type:none; margin: 0;"></ul>
             </div>
         </div>
     </div>
@@ -39,50 +39,41 @@
         <input type="text" id="node-input-name" data-i18n="[placeholder]common.label.name">
     </div>
 </script>
-<script type="text/x-red" data-help-name="catch">
-    <p>Catch errors thrown by nodes on the same tab.</p>
-    <p>If a node throws a error whilst handling a message, the flow will typically
-       halt. This node can be used to catch those errors and handle them with a
-       dedicated flow.</p>
-    <p>The node will catch errors thrown by any node on the same tab. If there
-       are multiple catch nodes on a tab, they will all get triggered.</p>
-    <p>If an error is thrown within a subflow, the error will get handled by any
-       catch nodes within the subflow. If none exists, the error is propagated
-       up to the tab the subflow instance is on.</p>
-    <p>The message sent by this node will be the original message if the node that
-       threw the error provided it. The message will have an <code>error</code>
-       property with the following attributes:
-       <ul>
-        <li><code>message</code> : the error message</li>
-        <li><code>source.id</code> : the id of the node that threw the error</li>
-        <li><code>source.type</code> : the type of the node that threw the error</li>
-        <li><code>source.name</code> : the name, if set, of the node that threw the error</li>
-       </ul>
+<script type="text/x-red" data-help-name="status">
+    <p>Send status messages from other nodes on the same tab.</p>
+    <p>The message sent by this node will have a <code>status</code> property
+    with the following attributes:
+        <ul>
+            <li><code>text</code> : the status text</li>
+            <li><code>source.type</code> : the type of the node that reported status</li>
+            <li><code>source.id</code> : the id of the node that reported status</li>
+            <li><code>source.name</code> : the name, if set, of the node that reported status</li>
+
+        </ul>
    </p>
-   <p>If the message already had a <code>error</code> property, it is copied to <code>_error</code>.</p>
 </script>
 <style>
-#node-input-catch-target-container {
+#node-input-status-target-container {
     position: relative;
 }
-#node-input-catch-target-container li {
+#node-input-status-target-container li {
     padding: 2px 5px;
     background: none;
     font-size: 0.8em;
     margin:0;
     white-space: nowrap;
 }
-#node-input-catch-target-container li label {
+#node-input-status-target-container li label {
     margin-bottom: 0;
     width: 100%;
 }
-#node-input-catch-target-container li label input {
+#node-input-status-target-container li label input {
     vertical-align: top;
     width:15px;
     margin-right: 10px;
 }
-#node-input-catch-target-container li:hover,
-#node-input-catch-target-container li:hover .node-input-target-node-sublabel {
+#node-input-status-target-container li:hover,
+#node-input-status-target-container li:hover .node-input-target-node-sublabel {
     background: #f0f0f0;
 }
 .node-input-target-node-sublabel {
@@ -95,9 +86,9 @@
 }
 </style>
 <script type="text/javascript">
-    RED.nodes.registerType('catch',{
+    RED.nodes.registerType('status',{
         category: 'input',
-        color:"#e49191",
+        color:"#c0edc0",
         defaults: {
             name: {value:""},
             scope: {value:null}
@@ -106,13 +97,13 @@
         outputs:1,
         icon: "alert.png",
         label: function() {
-            return this.name||this.scope?this._("catch.catchNodes",{number:this.scope.length}):this._("catch.catch");
+            return this.name||this.scope?this._("status.statusNodes",{number:this.scope.length}):this._("status.status");
         },
         labelStyle: function() {
             return this.name?"node_label_italic":"";
         },
         oneditprepare: function() {
-            var nodeList = $("#node-input-catch-target-container");
+            var nodeList = $("#node-input-status-target-container");
             var node = this;
             function createNodeList() {
                 var scope = node.scope || [];
@@ -199,8 +190,8 @@
                 nodeList.data('currentSort',currentSort);
                 nodeList.data('currentSortOrder',currentSortOrder);
 
-                $("#node-input-catch-target-container-div .fa").hide();
-                $(".node-input-catch-sort-"+currentSort+"-"+currentSortOrder).show();
+                $("#node-input-status-target-container-div .fa").hide();
+                $(".node-input-status-sort-"+currentSort+"-"+currentSortOrder).show();
 
 
                 var items = nodeList.find("li").get();
@@ -254,12 +245,12 @@
                 }
                 var editorRow = $("#dialog-form>div.node-input-target-row");
                 height -= (parseInt(editorRow.css("marginTop"))+parseInt(editorRow.css("marginBottom")));
-                $("#node-input-catch-target-container-div").css("height",height+"px");
+                $("#node-input-status-target-container-div").css("height",height+"px");
             };
 
             $( "#dialog" ).on("dialogresize", dialogResize);
             $( "#dialog" ).one("dialogopen", function(ev) {
-                var size = $( "#dialog" ).dialog('option','sizeCache-catch');
+                var size = $( "#dialog" ).dialog('option','sizeCache-status');
                 if (size) {
                     $("#dialog").dialog('option','width',size.width);
                     $("#dialog").dialog('option','height',size.height);

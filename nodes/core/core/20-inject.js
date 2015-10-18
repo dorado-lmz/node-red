@@ -74,20 +74,20 @@ module.exports = function(RED) {
             if (RED.settings.verbose) { this.log(RED._("inject.stopped")); }
             delete this.cronjob;
         }
-    };
+    }
 
     RED.httpAdmin.post("/inject/:id", RED.auth.needsPermission("inject.write"), function(req,res) {
         var node = RED.nodes.getNode(req.params.id);
         if (node != null) {
             try {
-                node.receive();//从flow中获取当前节点,判断msg对象是否为空,
-                res.send(200);
+                node.receive();
+                res.sendStatus(200);
             } catch(err) {
-                res.send(500);
+                res.sendStatus(500);
                 node.error(RED._("inject.failed",{error:err.toString()}));
             }
         } else {
-            res.send(404);
+            res.sendStatus(404);
         }
     });
 }

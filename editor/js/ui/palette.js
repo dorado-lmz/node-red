@@ -17,7 +17,7 @@
 RED.palette = (function() {
 
     var exclusion = ['config','unknown','deprecated'];
-    var core = ['subflows', 'input', 'output', 'function', 'social', 'storage', 'analysis', 'advanced'];
+    var core = ['subflows', 'input', 'output', 'function', 'social', 'mobile', 'storage', 'analysis', 'advanced'];
 
     var categoryContainers = {};
 
@@ -61,7 +61,7 @@ RED.palette = (function() {
     }
 
     function setLabel(type, el,label) {
-        var nodeWidth = 80;
+        var nodeWidth = 82;
         var nodeHeight = 25;
         var lineHeight = 20;
         var portHeight = 10;

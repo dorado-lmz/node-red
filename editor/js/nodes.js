@@ -156,7 +156,6 @@ RED.nodes = (function() {
         }
         if (n._def.category == "config") {
             configNodes[n.id] = n;
-            RED.sidebar.config.refresh();
         } else {
             n.dirty = true;
             var updatedConfigNode = false;
@@ -176,7 +175,7 @@ RED.nodes = (function() {
                 }
             }
             if (updatedConfigNode) {
-                RED.sidebar.config.refresh();
+                // TODO: refresh config tab?
             }
             if (n._def.category == "subflows" && typeof n.i === "undefined") {
                 var nextId = 0;
@@ -215,7 +214,7 @@ RED.nodes = (function() {
         if (id in configNodes) {
             node = configNodes[id];
             delete configNodes[id];
-            RED.sidebar.config.refresh();
+            RED.workspaces.refresh();
         } else {
             node = getNode(id);
             if (node) {
@@ -245,11 +244,11 @@ RED.nodes = (function() {
                     }
                 }
                 if (updatedConfigNode) {
-                    RED.sidebar.config.refresh();
+                    RED.workspaces.refresh();
                 }
             }
         }
-        if (node._def.onremove) {
+        if (node && node._def.onremove) {
             node._def.onremove.call(n);
         }
         return {links:removedLinks,nodes:removedNodes};
@@ -273,15 +272,24 @@ RED.nodes = (function() {
         var removedNodes = [];
         var removedLinks = [];
         var n;
+        var node;
         for (n=0;n<nodes.length;n++) {
-            var node = nodes[n];
+            node = nodes[n];
             if (node.z == id) {
                 removedNodes.push(node);
             }
         }
+        for(n in configNodes) {
+            if (configNodes.hasOwnProperty(n)) {
+                node = configNodes[n];
+                if (node.z == id) {
+                    removedNodes.push(node);
+                }
+            }
+        }
         for (n=0;n<removedNodes.length;n++) {
-            var rmlinks = removeNode(removedNodes[n].id);
-            removedLinks = removedLinks.concat(rmlinks);
+            var result = removeNode(removedNodes[n].id);
+            removedLinks = removedLinks.concat(result.links);
         }
         return {nodes:removedNodes,links:removedLinks};
     }
@@ -382,6 +390,7 @@ RED.nodes = (function() {
         var node = {};
         node.id = n.id;
         node.type = n.type;
+        node.z = n.z;
         if (node.type == "unknown") {
             for (var p in n._orig) {
                 if (n._orig.hasOwnProperty(p)) {
@@ -417,7 +426,6 @@ RED.nodes = (function() {
         if (n._def.category != "config") {
             node.x = n.x;
             node.y = n.y;
-            node.z = n.z;
             node.wires = [];
             for(var i=0;i<n.outputs;i++) {
                 node.wires.push([]);
@@ -545,8 +553,11 @@ RED.nodes = (function() {
         return nns;
     }
 
-    function compareNodes(nodeA,nodeB) {
-        if (nodeA.id != nodeB.id || nodeA.type != nodeB.type) {
+    function compareNodes(nodeA,nodeB,idMustMatch) {
+        if (idMustMatch && nodeA.id != nodeB.id) {
+            return false;
+        }
+        if (nodeA.type != nodeB.type) {
             return false;
         }
         var def = nodeA._def;
@@ -685,26 +696,6 @@ RED.nodes = (function() {
                 });
                 new_subflows.push(n);
                 addSubflow(n,createNewIds);
-            } else {
-                def = registry.getNodeType(n.type);
-                if (def && def.category == "config") {
-                    var existingConfigNode = RED.nodes.node(n.id);
-                    if (!existingConfigNode || !compareNodes(existingConfigNode,n) || existingConfigNode._def.exclusive) {
-                        var configNode = {id:n.id,type:n.type,users:[]};
-                        for (var d in def.defaults) {
-                            if (def.defaults.hasOwnProperty(d)) {
-                                configNode[d] = n[d];
-                            }
-                        }
-                        configNode.label = def.label;
-                        configNode._def = def;
-                        if (existingConfigNode || createNewIds) {
-                            configNode.id = getID();
-                        }
-                        node_map[n.id] = configNode;
-                        RED.nodes.add(configNode);
-                    }
-                }
             }
         }
         if (defaultWorkspace == null) {
@@ -713,6 +704,60 @@ RED.nodes = (function() {
             RED.workspaces.add(defaultWorkspace);
             new_workspaces.push(defaultWorkspace);
             activeWorkspace = RED.workspaces.active();
+        }
+
+        for (i=0;i<newNodes.length;i++) {
+            n = newNodes[i];
+            def = registry.getNodeType(n.type);
+            if (def && def.category == "config") {
+                var existingConfigNode = null;
+                if (createNewIds) {
+                    if (n.z) {
+                        if (subflow_map[n.z]) {
+                            n.z = subflow_map[n.z].id;
+                        } else {
+                            n.z = workspace_map[n.z];
+                            if (!workspaces[n.z]) {
+                                n.z = activeWorkspace;
+                            }
+                        }
+                    }
+                    existingConfigNode = RED.nodes.node(n.id);
+                    if (existingConfigNode) {
+                        if (n.z && existingConfigNode.z !== n.z) {
+                            existingConfigNode = null;
+                            // Check the config nodes on n.z
+                            for (var cn in configNodes) {
+                                if (configNodes.hasOwnProperty(cn)) {
+                                    if (configNodes[cn].z === n.z && compareNodes(configNodes[cn],n,false)) {
+                                        existingConfigNode = configNodes[cn];
+                                        node_map[n.id] = configNodes[cn];
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+                if (!existingConfigNode) { //} || !compareNodes(existingConfigNode,n,true) || existingConfigNode._def.exclusive || existingConfigNode.z !== n.z) {
+                    var configNode = {id:n.id, z:n.z, type:n.type, users:[]};
+                    for (var d in def.defaults) {
+                        if (def.defaults.hasOwnProperty(d)) {
+                            configNode[d] = n[d];
+                        }
+                    }
+                    configNode.label = def.label;
+                    configNode._def = def;
+                    if (createNewIds) {
+                        configNode.id = getID();
+                    }
+                    node_map[n.id] = configNode;
+                    new_nodes.push(configNode);
+                    RED.nodes.add(configNode);
+                }
+            }
         }
 
         for (i=0;i<newNodes.length;i++) {
@@ -809,17 +854,19 @@ RED.nodes = (function() {
         }
         for (i=0;i<new_nodes.length;i++) {
             n = new_nodes[i];
-            for (var w1=0;w1<n.wires.length;w1++) {
-                var wires = (n.wires[w1] instanceof Array)?n.wires[w1]:[n.wires[w1]];
-                for (var w2=0;w2<wires.length;w2++) {
-                    if (wires[w2] in node_map) {
-                        var link = {source:n,sourcePort:w1,target:node_map[wires[w2]]};
-                        addLink(link);
-                        new_links.push(link);
+            if (n.wires) {
+                for (var w1=0;w1<n.wires.length;w1++) {
+                    var wires = (n.wires[w1] instanceof Array)?n.wires[w1]:[n.wires[w1]];
+                    for (var w2=0;w2<wires.length;w2++) {
+                        if (wires[w2] in node_map) {
+                            var link = {source:n,sourcePort:w1,target:node_map[wires[w2]]};
+                            addLink(link);
+                            new_links.push(link);
+                        }
                     }
                 }
+                delete n.wires;
             }
-            delete n.wires;
         }
         for (i=0;i<new_subflows.length;i++) {
             n = new_subflows[i];
@@ -846,6 +893,7 @@ RED.nodes = (function() {
             });
         }
 
+        RED.workspaces.refresh();
         return [new_nodes,new_links,new_workspaces,new_subflows];
     }
 
@@ -944,6 +992,13 @@ RED.nodes = (function() {
             for (var id in subflows) {
                 if (subflows.hasOwnProperty(id)) {
                     cb(subflows[id]);
+                }
+            }
+        },
+        eachWorkspace: function(cb) {
+            for (var id in workspaces) {
+                if (workspaces.hasOwnProperty(id)) {
+                    cb(workspaces[id]);
                 }
             }
         },

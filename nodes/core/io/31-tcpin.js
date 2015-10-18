@@ -307,7 +307,7 @@ module.exports = function(RED) {
                 var remoteDetails = socket.remoteAddress+":"+socket.remotePort;
                 node.log(RED._("tcpin.status.connection-from",{host:socket.remoteAddress, port:socket.remotePort}));
                 connectedSockets.push(socket);
-                node.status({text:connectedSockets.length+" "+"tcpin.status.connections"});
+                node.status({text:RED._("tcpin.status.connections",{count:connectedSockets.length})});
                 socket.on('timeout', function() {
                     node.log(RED._("tcpin.errors.timeout",{port:node.port}));
                     socket.end();
@@ -393,7 +393,7 @@ module.exports = function(RED) {
             }
             if (!node.connected) {
                 client = net.Socket();
-                client.setTimeout(socketTimeout);
+                if (socketTimeout) { client.setTimeout(socketTimeout); }
                 //node.status({});
                 var host = node.server || msg.host;
                 var port = node.port || msg.port;
@@ -432,7 +432,7 @@ module.exports = function(RED) {
                                         m = new Buffer(i+1);
                                         buf.copy(m,0,0,i+1);
                                         node.send({"payload":m});
-                                        if (client) { client.end(); }
+                                        //if (client) { client.end(); }
                                     }, node.splitc);
                                     i = 0;
                                     buf[0] = data[j];
@@ -445,7 +445,8 @@ module.exports = function(RED) {
                                 if ( i >= node.splitc) {
                                     m = new Buffer(i);
                                     buf.copy(m,0,0,i);
-                                    if (client) { client.end(); }
+                                    node.send({"payload":m});
+                                    //if (client) { client.end(); }
                                     i = 0;
                                 }
                             }
@@ -456,7 +457,8 @@ module.exports = function(RED) {
                                 if (data[j] == node.splitc) {
                                     m = new Buffer(i);
                                     buf.copy(m,0,0,i);
-                                    if (client) { client.end(); }
+                                    node.send({"payload":m});
+                                    //if (client) { client.end(); }
                                     i = 0;
                                 }
                             }
@@ -472,6 +474,7 @@ module.exports = function(RED) {
                 });
 
                 client.on('close', function() {
+                    node.status({});
                     if (node.done) { node.done(); }
                 });
 
@@ -501,7 +504,7 @@ module.exports = function(RED) {
             node.done = done;
             if (client) {
                 buf = null;
-                client.end();
+                client.destroy();
             }
             if (!node.connected) { done(); }
         });

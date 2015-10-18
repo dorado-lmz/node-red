@@ -84,19 +84,13 @@ RED.workspaces = (function() {
         workspace_tabs = RED.tabs.create({
             id: "workspace-tabs",
             onchange: function(tab) {
-                if (tab.type == "subflow") {
-                    $("#chart").css({"margin-top": "40px"});
-                    $("#workspace-toolbar").show();
-                } else {
-                    $("#workspace-toolbar").hide();
-                    $("#chart").css({"margin-top": "0"});
-                }
                 var event = {
                     old: activeWorkspace
                 }
                 activeWorkspace = tab.id;
                 event.workspace = activeWorkspace;
                 RED.events.emit("workspace:change",event);
+                RED.sidebar.config.refresh();
             },
             ondblclick: function(tab) {
                 if (tab.type != "subflow") {
@@ -221,6 +215,7 @@ RED.workspaces = (function() {
             }
         }
     }
+
     return {
         init: init,
         add: addWorkspace,
@@ -242,7 +237,7 @@ RED.workspaces = (function() {
             if (!workspace_tabs.contains(id)) {
                 var sf = RED.nodes.subflow(id);
                 if (sf) {
-                    addWorkspace({type:"subflow",id:id,label:RED._("subflow.tabLabel",{name:sf.name}), closeable: true});
+                    addWorkspace({type:"subflow",id:id,icon:"red/images/subflow_tab.png",label:sf.name, closeable: true});
                 }
             }
             workspace_tabs.activateTab(id);
@@ -250,9 +245,10 @@ RED.workspaces = (function() {
         refresh: function() {
             RED.nodes.eachSubflow(function(sf) {
                 if (workspace_tabs.contains(sf.id)) {
-                    workspace_tabs.renameTab(sf.id,RED._("subflow.tabLabel",{name:sf.name}));
+                    workspace_tabs.renameTab(sf.id,sf.name);
                 }
             });
+            RED.sidebar.config.refresh();
         },
         resize: function() {
             workspace_tabs.resize();

@@ -58,12 +58,7 @@
         <ul id="workspace-tabs"></ul>
         <div id="workspace-add-tab"><a id="btn-workspace-add-tab" href="#"><i class="fa fa-plus"></i></a></div>
         <div id="chart"></div>
-        <div id="workspace-toolbar">
-            <a class="button" id="workspace-subflow-edit" href="#" data-i18n="[append]subflow.editSubflowName"><i class="fa fa-pencil"></i> </a>
-            <a class="button disabled" id="workspace-subflow-add-input" href="#" data-i18n="[append]subflow.input"><i class="fa fa-plus"></i> </a>
-            <a class="button" id="workspace-subflow-add-output" href="#" data-i18n="[append]subflow.output"><i class="fa fa-plus"></i> </a>
-            <a class="button" id="workspace-subflow-delete" href="#" data-i18n="[append]subflow.deleteSubflow"><i class="fa fa-trash"></i> </a>
-        </div>
+        <div id="workspace-toolbar"></div>
         <div id="workspace-footer">
             <a class="workspace-footer-button" id="btn-zoom-out" href="#"><i class="fa fa-minus"></i></a>
             <a class="workspace-footer-button" id="btn-zoom-zero" href="#"><i class="fa fa-circle-o"></i></a>
@@ -84,7 +79,7 @@
 <div id="dropTarget"><div data-i18n="[append]workspace.dropFlowHere"><br/><i class="fa fa-download"></i></div></div>
 
 <div id="dialog" class="hide"><form id="dialog-form" class="form-horizontal"></form></div>
-<div id="node-config-dialog" class="hide"><form id="dialog-config-form" class="form-horizontal"></form><div class="form-tips" id="node-config-dialog-user-count"></div></div>
+<div id="node-config-dialog" class="hide"><form id="dialog-config-form" class="form-horizontal"><div id="node-config-dialog-edit-form"></div><!--<div id="node-config-dialog-toolbar" class="form-row"><label><span>Node scope</span></label><select id="node-config-dialog-scope"></select></div>--></form></div>
 <div id="subflow-dialog" class="hide">
     <form class="form-horizontal">
         <div class="form-row">
@@ -96,12 +91,14 @@
 
 <div id="node-dialog-confirm-deploy" class="hide">
     <form class="form-horizontal">
-        <div id="node-dialog-confirm-deploy-config" style="text-align: left; padding-top: 30px;" data-i18n="[prepend]deploy.confirm.improperlyConfigured;[append]deploy.confirm.confirm"> </div>
+        <div id="node-dialog-confirm-deploy-config" style="text-align: left; padding-top: 30px;" data-i18n="[prepend]deploy.confirm.improperlyConfigured;[append]deploy.confirm.confirm">
+            <ul style="font-size: 0.9em; width: 400px; margin: 10px auto; text-align: left;" id="node-dialog-confirm-deploy-invalid-list"></ul>
+        </div>
         <div id="node-dialog-confirm-deploy-unknown" style="text-align: left; padding-top: 10px;" data-i18n="[prepend]deploy.confirm.unknown;[append]deploy.confirm.confirm">
-         <ul style="font-size: 0.9em; width: 400px; margin: 10px auto; text-align: left;" id="node-dialog-confirm-deploy-unknown-list"></ul>
+            <ul style="font-size: 0.9em; width: 400px; margin: 10px auto; text-align: left;" id="node-dialog-confirm-deploy-unknown-list"></ul>
         </div>
         <div id="node-dialog-confirm-deploy-unused" style="text-align: left; padding-top: 10px;" data-i18n="[prepend]deploy.confirm.unusedConfig;[append]deploy.confirm.confirm">
-         <ul style="font-size: 0.9em; width: 400px; margin: 10px auto; text-align: left;" id="node-dialog-confirm-deploy-unused-list"></ul>
+            <ul style="font-size: 0.9em; width: 400px; margin: 10px auto; text-align: left;" id="node-dialog-confirm-deploy-unused-list"></ul>
         </div>
     </form>
 </div>

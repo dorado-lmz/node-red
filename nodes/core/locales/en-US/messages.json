@@ -68,7 +68,36 @@
         }
     },
     "catch": {
-        "catch": "catch"
+        "catch": "catch all",
+        "catchNodes": "catch (__number__)",
+        "label": {
+            "source": "Catch errors from",
+            "node": "node",
+            "type": "type",
+            "selectAll": "select all",
+            "sortByLabel": "sort by label",
+            "sortByType": "sort by type"
+        },
+        "scope": {
+            "all": "all nodes",
+            "selected": "selected nodes"
+        }
+    },
+    "status": {
+        "status": "status (all)",
+        "statusNodes": "status (__number__)",
+        "label": {
+            "source": "Report status from",
+            "node": "node",
+            "type": "type",
+            "selectAll": "select all",
+            "sortByLabel": "sort by label",
+            "sortByType": "sort by type"
+        },
+        "scope": {
+            "all": "all nodes",
+            "selected": "selected nodes"
+        }
     },
     "debug": {
         "output": "Output",
@@ -182,13 +211,32 @@
     },
     "mqtt": {
         "label": {
-            "broker": "Broker",
+            "broker": "Server",
             "qos": "QoS",
             "clientid": "Client ID",
-            "port": "Port"
+            "port": "Port",
+            "keepalive": "Keep alive time (s)",
+            "cleansession": "Use clean session",
+            "use-tls": "Enable secure (SSL/TLS) connection",
+            "verify-server-cert":"Verify server certificate",
+            "compatmode": "Use legacy MQTT 3.1 support"
+        },
+        "tabs-label": {
+            "connection": "Connection",
+            "security": "Security",
+            "will": "Will Message",
+            "birth": "Birth Message"
         },
         "placeholder": {
-            "clientid": "Leave blank for auto generated"
+            "clientid": "Leave blank for auto generated",
+            "clientid-nonclean":"Must be set for non-clean sessions",
+            "will-topic": "Leave blank to disable will message",
+            "birth-topic": "Leave blank to disable birth message"
+        },
+        "state": {
+            "connected": "Connected to broker: __broker__",
+            "disconnected": "Disconnected from broker: __broker__",
+            "connect-failed": "Connection failed to broker: __broker__"
         },
         "retain": "Retain",
         "true": "true",
@@ -197,7 +245,8 @@
         "errors": {
             "not-defined": "topic not defined",
             "missing-config": "missing broker configuration",
-            "invalid-topic": "Invalid topic specified"
+            "invalid-topic": "Invalid topic specified",
+            "nonclean-missingclientid": "No client ID set, using clean session"
         }
     },
     "httpin": {
@@ -220,9 +269,11 @@
         "httpreq": "http request",
         "errors": {
             "not-created": "Cannot create http-in node when httpNodeRoot set to false",
+            "missing-path": "missing path",
             "no-response": "No response object",
             "json-error": "JSON parse error",
-            "no-url": "No url specified"
+            "no-url": "No url specified",
+            "deprecated-call":"Deprecated call to __method__"
         },
         "status": {
             "requesting": "requesting"
@@ -374,8 +425,10 @@
             "property": "Property",
             "rule": "rule"
         },
+        "and": "and",
         "checkall": "checking all rules",
         "stopfirst": "stopping after first match",
+        "ignorecase": "ignore case",
         "rules": {
             "btwn":"is between",
             "cont":"contains",
@@ -467,7 +520,8 @@
             "windows": "Windows (\\r\\n)"
         },
         "errors": {
-            "csv_js": "This node only handles csv strings or js objects."
+            "csv_js": "This node only handles csv strings or js objects.",
+            "obj_csv": "No columns template specified for object -> csv."
         }
     },
     "html": {
@@ -488,7 +542,8 @@
     "json": {
         "errors": {
             "dropped-object": "Ignored non-object payload",
-            "dropped": "Ignored unsupported payload type"
+            "dropped": "Ignored unsupported payload type",
+            "dropped-error": "Failed to convert payload"
         }
     },
     "xml": {

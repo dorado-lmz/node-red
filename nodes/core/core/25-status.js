@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-var i18n = require("../i18n");
 
-module.exports = {
-    get: function(req,res) {
-        var namespace = req.params[0];
-        namespace = namespace.replace(/\.json$/,"");
-        var lang = i18n.determineLangFromHeaders(req.acceptsLanguages() || []);
-        var prevLang = i18n.i.lng();
-        i18n.i.setLng(lang, function(){
-            var catalog = i18n.catalog(namespace,lang);
-            res.json(catalog||{});
+module.exports = function(RED) {
+    "use strict";
+
+    function StatusNode(n) {
+        RED.nodes.createNode(this,n);
+        var node = this;
+        this.scope = n.scope;
+        this.on("input", function(msg) {
+            this.send(msg);
         });
-        i18n.i.setLng(prevLang);
     }
+
+    RED.nodes.registerType("status",StatusNode);
 }

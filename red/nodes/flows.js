@@ -47,7 +47,7 @@ var flowNodes = module.exports = {
         settings = _settings;
         storage = _storage;
     },
-    
+
     /**
      * Load the current activeConfig from storage and start it running
      * @return a promise for the loading of the config
@@ -63,7 +63,7 @@ var flowNodes = module.exports = {
             console.log(err.stack);
         });
     },
-    
+
     /**
      * Get a node
      * @param i the node id
@@ -72,18 +72,18 @@ var flowNodes = module.exports = {
     get: function(i) {
         return activeFlow.getNode(i);
     },
-    
+
     eachNode: function(cb) {
         activeFlow.eachNode(cb);
     },
-    
+
     /**
      * @return the active configuration
      */
     getFlows: function() {
         return activeFlow.getFlow();
     },
-    
+
     /**
      * Sets the current active config.
      * @param config the configuration to enable
@@ -91,14 +91,14 @@ var flowNodes = module.exports = {
      * @return a promise for the starting of the new flow
      */
     setFlows: function (config,type) {
-        
+
         type = type||"full";
-        
+
         var credentialsChanged = false;
-        
+
         var credentialSavePromise = null;
-        
-        
+
+
         // Clone config and extract credentials prior to saving
         // Original config needs to retain credentials so that flow.applyConfig
         // knows which nodes have had changes.
@@ -109,7 +109,7 @@ var flowNodes = module.exports = {
                 credentialsChanged = true;
             }
         });
-        
+
         if (credentialsChanged) {
             credentialSavePromise = credentials.save();
         } else {
@@ -126,7 +126,7 @@ var flowNodes = module.exports = {
         } else {
             return credentialSavePromise
                 .then(function() { return storage.saveFlows(cleanConfig);})
-                .then(function() { 
+                .then(function() {
                     var configDiff = activeFlow.diffConfig(config,type);
                     return flowNodes.stopFlows(configDiff).then(function() {
                         activeFlow.parseConfig(config);
@@ -194,6 +194,9 @@ var flowNodes = module.exports = {
     },
     handleError: function(node,logMessage,msg) {
         activeFlow.handleError(node,logMessage,msg);
+    },
+    handleStatus: function(node,statusMessage) {
+        activeFlow.handleStatus(node,statusMessage);
     }
 };
 

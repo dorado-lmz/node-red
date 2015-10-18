@@ -22,6 +22,7 @@
                 "show": "Toggle Sidebar"
             },
             "displayStatus": "Display Node Status",
+            "displayConfig": "Configuration Nodes",
             "import": "Import",
             "export": "Export",
             "clipboard": "Clipboard",
@@ -29,7 +30,7 @@
             "subflows": "Subflows",
             "createSubflow": "Create Subflow",
             "selectionToSubflow": "Selection to Subflow",
-            "workspaces": "Workspaces",
+            "flows": "Sheets",
             "add": "Add",
             "rename": "Rename",
             "delete": "Delete",
@@ -87,21 +88,20 @@
                 "cancel": "Cancel"
             },
             "undeployedChanges": "You have undeployed changes.\n\nLeaving this page will lose these changes.",
-            "improperlyConfigured": "Some of the nodes are not properly configured.",
+            "improperlyConfigured": "The workspace contains some nodes that are not properly configured:",
             "unknown": "The workspace contains some unknown node types:",
             "unusedConfig": "The workspace contains some unused configuration nodes:",
             "confirm": "Are you sure you want to deploy?"
         }
     },
     "subflow": {
-        "tabLabel": "Subflow: __name__",
         "editSubflow": "Edit flow __name__",
         "edit": "Edit flow",
         "subflowInstances": "There is __count__ instance of this subflow",
         "subflowInstances_plural": "There are __count__ instances of this subflow",
         "editSubflowName": "edit name",
-        "input": "input",
-        "output": "output",
+        "input": "inputs:",
+        "output": "outputs:",
         "deleteSubflow": "delete subflow",
         "errors": {
             "noNodesSelected": "<strong>Cannot create subflow</strong>: no nodes selected",
@@ -116,7 +116,10 @@
         "nodesUse_plural": "__count__ nodes use this config",
         "addNewConfig": "Add new __type__ config node",
         "editConfig": "Edit __type__ config node",
-        "addNewType": "Add new __type__..."
+        "addNewType": "Add new __type__...",
+        "errors": {
+            "scopeChange": "Changing the scope will make it unavailable to nodes in other flows that use it"
+        }
     },
     "keyboard": {
         "selectAll": "Select all nodes",
@@ -191,7 +194,10 @@
         },
         "config": {
             "name": "Configuration nodes",
-            "label": "config"
+            "label": "config",
+            "local": "on this sheet",
+            "global": "on all sheets",
+            "none": "none"
         }
     }
 }
