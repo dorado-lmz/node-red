@@ -2,11 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6599a9de-d522-4545-b681-02c7ff96ee3a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/test/FileCopy.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/red/util/FileUtil.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/red/nodes/flows.js" afterPath="$PROJECT_DIR$/red/nodes/flows.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/red/gen/gen.js" afterPath="$PROJECT_DIR$/red/gen/gen.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/2StateModule/view/1.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/2StateModule/view/2.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/2StateModule/view/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/2StateModule/index.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test/test/q.js" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/test/test/FileCopy.js" afterPath="$PROJECT_DIR$/1ModuleTest/FileCopy.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/download/20-inject.js" afterPath="$PROJECT_DIR$/download/20-inject.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/download/58-debug.js" afterPath="$PROJECT_DIR$/download/58-debug.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gruntfile.js" afterPath="$PROJECT_DIR$/Gruntfile.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/editor/vendor/bootstrap/css/bootstrap.css" afterPath="$PROJECT_DIR$/editor/vendor/bootstrap/css/bootstrap.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/editor/vendor/jquery/js/jquery-ui-1.10.3.custom.min.js" afterPath="$PROJECT_DIR$/editor/vendor/jquery/js/jquery-ui-1.10.3.custom.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/red.js" afterPath="$PROJECT_DIR$/red.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/editor/js/ui/sidebar.js" afterPath="$PROJECT_DIR$/editor/js/ui/sidebar.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/editor/js/ui/tabs.js" afterPath="$PROJECT_DIR$/editor/js/ui/tabs.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/red/api/theme.js" afterPath="$PROJECT_DIR$/red/api/theme.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/editor/js/ui/workspaces.js" afterPath="$PROJECT_DIR$/editor/js/ui/workspaces.js" />
     </list>
     <ignored path="node-red.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,105 +39,131 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="index.mst" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/editor/templates/index.mst">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="2.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/2StateModule/view/2.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-21.74074">
+              <caret line="176" column="7" selection-start-line="176" selection-start-column="7" selection-end-line="176" selection-end-column="7" />
+              <folding>
+                <element signature="n#div#6;n#body#0;n#html#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/red/nodes/registry/index.js">
+        <entry file="file://$PROJECT_DIR$/red/api/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="66" column="38" selection-start-line="66" selection-start-column="38" selection-end-line="66" selection-end-column="38" />
+              <caret line="48" column="46" selection-start-line="48" selection-start-column="46" selection-end-line="48" selection-end-column="46" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="registry.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/red/nodes/registry/registry.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.37037">
-              <caret line="463" column="54" selection-start-line="463" selection-start-column="43" selection-end-line="463" selection-end-column="54" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="flows.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/red/api/flows.js">
+      <file leaf-file-name="ui.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/red/api/ui.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+              <caret line="29" column="23" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="flows.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/red/nodes/flows.js">
+      <file leaf-file-name="theme.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/red/api/theme.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="122" column="60" selection-start-line="122" selection-start-column="60" selection-end-line="122" selection-end-column="60" />
+              <caret line="40" column="9" selection-start-line="40" selection-start-column="9" selection-end-line="40" selection-end-column="9" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gen.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/red/gen/gen.js">
+      <file leaf-file-name="red.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/red/red.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="20-inject.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/download/20-inject.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.56162244">
-              <caret line="20" column="28" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FileCopy.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/test/FileCopy.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="64" selection-end-column="1" />
+              <caret line="5203" column="32" selection-start-line="5203" selection-start-column="32" selection-end-line="5203" selection-end-column="32" />
               <folding>
-                <element signature="e#0#38#0" expanded="false" />
+                <element signature="e#1536#1992#0" expanded="false" />
+                <element signature="e#6128#8643#0" expanded="false" />
+                <element signature="e#10220#10940#0" expanded="false" />
+                <element signature="e#11568#12227#0" expanded="false" />
+                <element signature="e#25370#28934#0" expanded="false" />
+                <element signature="e#29543#29699#0" expanded="false" />
+                <element signature="e#65747#74338#0" expanded="false" />
+                <element signature="e#75716#86302#0" expanded="false" />
+                <element signature="e#86925#94698#0" expanded="false" />
+                <element signature="e#95322#100170#0" expanded="false" />
+                <element signature="e#100799#105714#0" expanded="false" />
+                <element signature="e#106338#107989#0" expanded="false" />
+                <element signature="e#108617#117420#0" expanded="false" />
+                <element signature="e#223125#230165#0" expanded="false" />
+                <element signature="e#230795#233324#0" expanded="false" />
+                <element signature="e#233952#278166#0" expanded="false" />
+                <element signature="e#278793#285485#0" expanded="false" />
+                <element signature="e#303349#304756#0" expanded="false" />
+                <element signature="e#305380#317712#0" expanded="false" />
+                <element signature="e#318372#323756#0" expanded="false" />
+                <marker date="1445476471000" expanded="true" signature="17508:17605" placeholder="..." />
+                <marker date="1445476471000" expanded="true" signature="17694:17794" placeholder="..." />
+                <marker date="1445476471000" expanded="true" signature="17890:17909" placeholder="..." />
+                <marker date="1445476471000" expanded="true" signature="20006:20042" placeholder="..." />
+                <marker date="1445476471000" expanded="true" signature="20087:20115" placeholder="..." />
+                <marker date="1445476471000" expanded="true" signature="20204:20238" placeholder="..." />
+                <marker date="1445476471000" expanded="true" signature="79914:79969" placeholder="..." />
+                <marker date="1445476471000" expanded="true" signature="80024:80043" placeholder="..." />
+                <marker date="1445476471000" expanded="true" signature="80151:80166" placeholder="..." />
+                <marker date="1445476471000" expanded="true" signature="97083:97174" placeholder="..." />
+                <marker date="1445476471000" expanded="true" signature="98338:98429" placeholder="..." />
+                <marker date="1445476471000" expanded="true" signature="225879:225911" placeholder="..." />
+                <marker date="1445476471000" expanded="true" signature="226439:226471" placeholder="..." />
+                <marker date="1445476471000" expanded="true" signature="261019:261033" placeholder="..." />
+                <marker date="1445476471000" expanded="true" signature="280761:280788" placeholder="..." />
+                <marker date="1445476471000" expanded="true" signature="280900:281047" placeholder="..." />
+                <marker date="1445476471000" expanded="true" signature="291768:291785" placeholder="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FileUtil.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/red/util/FileUtil.js">
+      <file leaf-file-name="99-sample.html.demo" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/nodes/99-sample.html.demo">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="2" selection-start-line="21" selection-start-column="2" selection-end-line="21" selection-end-column="2" />
-              <folding>
-                <element signature="e#0#38#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="localfilesystem.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/red/storage/localfilesystem.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="29.296297">
-              <caret line="159" column="25" selection-start-line="159" selection-start-column="12" selection-end-line="159" selection-end-column="25" />
+              <caret line="66" column="10" selection-start-line="66" selection-start-column="10" selection-end-line="66" selection-end-column="10" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/red/server.js">
+      <file leaf-file-name="state.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/nodes/states/state.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="109" column="28" selection-start-line="109" selection-start-column="28" selection-end-line="109" selection-end-column="28" />
+              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="state.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/nodes/states/state.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.66484267">
+              <caret line="36" column="9" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -137,27 +175,48 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="Html5" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="exp4" />
+      </map>
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="module.js" />
         <option value="$PROJECT_DIR$/red/nodes/index.js" />
-        <option value="$PROJECT_DIR$/public/red/red.js" />
         <option value="$PROJECT_DIR$/red/storage/localfilesystem.js" />
         <option value="$PROJECT_DIR$/red/api/flows.js" />
         <option value="$PROJECT_DIR$/red/nodes/Node.js" />
         <option value="$PROJECT_DIR$/nodes/core/core/20-inject.js" />
         <option value="$PROJECT_DIR$/red/nodes/Flow.js" />
-        <option value="$PROJECT_DIR$/red/nodes/flows.js" />
         <option value="$PROJECT_DIR$/test/test/FileCopy.js" />
         <option value="$PROJECT_DIR$/red/util/FileUtil.js" />
         <option value="$PROJECT_DIR$/red/gen/gen.js" />
+        <option value="$PROJECT_DIR$/red/nodes/flows.js" />
+        <option value="$PROJECT_DIR$/red/api/ui.js" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/red.js" />
+        <option value="$PROJECT_DIR$/red/red.js" />
+        <option value="$PROJECT_DIR$/red/server.js" />
+        <option value="$PROJECT_DIR$/2StateModule/index.js" />
+        <option value="$PROJECT_DIR$/2StateModule/view/index.html" />
+        <option value="$PROJECT_DIR$/2StateModule/view/2.js" />
+        <option value="$PROJECT_DIR$/2StateModule/view/1.html" />
+        <option value="$PROJECT_DIR$/2StateModule/view/2.html" />
+        <option value="$PROJECT_DIR$/nodes/core/state/state.html" />
+        <option value="$PROJECT_DIR$/red/api/theme.js" />
+        <option value="$PROJECT_DIR$/nodes/core/states/state.html" />
+        <option value="$PROJECT_DIR$/nodes/core/states/state.js" />
+        <option value="$PROJECT_DIR$/public/red/red.js" />
+        <option value="$PROJECT_DIR$/nodes/states/state.html" />
       </list>
     </option>
   </component>
@@ -171,9 +230,9 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="103" />
-    <option name="y" value="40" />
-    <option name="width" value="1920" />
+    <option name="x" value="43" />
+    <option name="y" value="38" />
+    <option name="width" value="1823" />
     <option name="height" value="1009" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -199,7 +258,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -229,7 +287,107 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="red" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node-red" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node-red" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="red" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="api" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node-red" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node-red" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node-red" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node-red" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vendor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node-red" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node-red" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="red" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node-red" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node-red" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="nodes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node-red" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node-red" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nodes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="states" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -261,15 +419,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="nodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
+              <option name="myItemId" value="editor" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -283,28 +433,80 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="download" />
+              <option name="myItemId" value="editor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node-red" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node-red" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="2StateModule" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node-red" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node-red" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="2StateModule" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="view" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/WebstormProjects/express" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="recentsLimit" value="5" />
     <property name="restartRequiresConfirmation" value="true" />
+    <property name="FullScreen" value="false" />
+    <property name="DefaultHtmlFileTemplate" value="Html5" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/nodes/core/state" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/nodes" />
+      <recent name="$PROJECT_DIR$/nodes/core" />
+      <recent name="$PROJECT_DIR$/1ModuleTest" />
+    </key>
   </component>
   <component name="RunManager" selected="Node.js.Unnamed">
-    <configuration default="false" name="FileCopy.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="$USER_HOME$/.nvm/versions/node/v0.12.0/bin/node" path-to-js-file="FileCopy.js" working-dir="$PROJECT_DIR$/test/test">
+    <configuration default="false" name="FileCopy.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="$USER_HOME$/.nvm/versions/node/v0.12.0/bin/node" path-to-js-file="$PROJECT_DIR$/1ModuleTest/FileCopy.js" working-dir="$PROJECT_DIR$/test/test">
       <method />
     </configuration>
     <configuration default="false" name="gen.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="$USER_HOME$/.nvm/versions/node/v0.12.0/bin/node" path-to-js-file="gen.js" working-dir="$PROJECT_DIR$/red/gen">
+      <method />
+    </configuration>
+    <configuration default="false" name="index.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="$USER_HOME$/.nvm/versions/node/v0.12.0/bin/node" path-to-js-file="index.js" working-dir="$PROJECT_DIR$/2StateModule">
       <method />
     </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
@@ -346,17 +548,22 @@
       <method />
     </configuration>
     <configuration default="false" name="Unnamed" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="$USER_HOME$/.nvm/versions/node/v0.12.0/bin/node" path-to-js-file="red.js" working-dir="$PROJECT_DIR$">
+      <envs>
+        <env name="NODE_ENV" value="development " />
+      </envs>
       <method />
     </configuration>
-    <list size="3">
+    <list size="4">
       <item index="0" class="java.lang.String" itemvalue="Node.js.Unnamed" />
       <item index="1" class="java.lang.String" itemvalue="Node.js.FileCopy.js" />
       <item index="2" class="java.lang.String" itemvalue="Node.js.gen.js" />
+      <item index="3" class="java.lang.String" itemvalue="Node.js.index.js" />
     </list>
     <recent_temporary>
-      <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Node.js.FileCopy.js" />
-        <item index="1" class="java.lang.String" itemvalue="Node.js.gen.js" />
+      <list size="3">
+        <item index="0" class="java.lang.String" itemvalue="Node.js.index.js" />
+        <item index="1" class="java.lang.String" itemvalue="Node.js.FileCopy.js" />
+        <item index="2" class="java.lang.String" itemvalue="Node.js.gen.js" />
       </list>
     </recent_temporary>
   </component>
@@ -387,21 +594,21 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="103" y="40" width="1920" height="1009" extended-state="0" />
-    <editor active="false" />
+    <frame x="43" y="38" width="1823" height="1009" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20979765" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1570338" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1937114" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15560392" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Grunt " active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19497785" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42966193" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2704471" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.08626198" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32715377" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25136018" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34167573" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14472252" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.02919708" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18063112" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3456925" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34494016" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -409,6 +616,14 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21819061" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -425,181 +640,11 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="42" />
+      <option name="time" value="43" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/red/gen/gen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/red/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="109" column="33" selection-start-line="109" selection-start-column="33" selection-end-line="109" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/red/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DHTML.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="29" column="17" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript5.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.6805348">
-          <caret line="82" column="7" selection-start-line="82" selection-start-column="7" selection-end-line="82" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/red/nodes/registry/loader.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="43" column="49" selection-start-line="43" selection-start-column="30" selection-end-line="43" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/red/nodes/registry/localfilesystem.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.78884465">
-          <caret line="27" column="41" selection-start-line="27" selection-start-column="41" selection-end-line="27" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/red/settings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/settings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="49.148148">
-          <caret line="91" column="23" selection-start-line="91" selection-start-column="23" selection-end-line="91" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.25396827">
-          <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/red.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="20" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/editor/templates/index.mst">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.429448">
-          <caret line="90" column="15" selection-start-line="90" selection-start-column="15" selection-end-line="90" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/red/api/auth/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/red/api/auth/permissions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.921875">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/red/api/auth/tokens.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.890625">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/red/api/auth/users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.5234375">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/red/api/locales.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/red/api/library.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.5825375">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/red/comms_spec.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="33" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/red/api/auth/clients.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.81991816">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/red/api/info.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12960437">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.jshintrc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Gruntfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.4802183">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/editor/js/nodes.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3328786">
@@ -643,14 +688,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/red/red.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.62393165">
-          <caret line="76" column="8" selection-start-line="76" selection-start-column="8" selection-end-line="76" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/red/util.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -658,18 +695,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/red/api/ui.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.03133903">
-          <caret line="19" column="31" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/red/storage/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5954416">
           <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -684,15 +713,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334">
           <caret line="112" column="24" selection-start-line="112" selection-start-column="24" selection-end-line="112" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/red/api/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -700,15 +720,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="141" column="22" selection-start-line="141" selection-start-column="22" selection-end-line="141" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nodes/core/core/20-inject.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="65" column="20" selection-start-line="65" selection-start-column="20" selection-end-line="65" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -716,15 +727,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="66" column="38" selection-start-line="66" selection-start-column="38" selection-end-line="66" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/red/nodes/registry/registry.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.37037">
+        <state vertical-scroll-proportion="0.0">
           <caret line="463" column="54" selection-start-line="463" selection-start-column="43" selection-end-line="463" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -732,67 +741,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/red/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="109" column="28" selection-start-line="109" selection-start-column="28" selection-end-line="109" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/red/storage/localfilesystem.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="29.296297">
+        <state vertical-scroll-proportion="0.0">
           <caret line="159" column="25" selection-start-line="159" selection-start-column="12" selection-end-line="159" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/test/q.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.4519231">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/test/FileCopy.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="64" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#38#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/red/util/FileUtil.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="2" selection-start-line="21" selection-start-column="2" selection-end-line="21" selection-end-column="2" />
-          <folding>
-            <element signature="e#0#38#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/red/nodes/flows.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="122" column="60" selection-start-line="122" selection-start-column="60" selection-end-line="122" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/red/gen/gen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -800,14 +755,326 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.30704224">
           <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/red/nodes/flows.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.49927008">
+          <caret line="141" column="58" selection-start-line="141" selection-start-column="58" selection-end-line="141" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.npmignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CONTRIBUTING.md">
+      <provider editor-type-id="MultiMarkdownFxPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+      <provider editor-type-id="MultiMarkdownFxHtmlEditor">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="26" column="17" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.nodemonignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15494978">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.92727274">
+          <caret line="52" column="30" selection-start-line="52" selection-start-column="30" selection-end-line="52" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/express/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.27272728">
+          <caret line="10" column="36" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/express/lib/express.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.27272728">
+          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/red/red.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="27" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/download/20-inject.js">
+    <entry file="file://$PROJECT_DIR$/red/comms.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.56162244">
-          <caret line="20" column="28" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/red/i18n.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/red.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="63" column="40" selection-start-line="63" selection-start-column="40" selection-end-line="63" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/red/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/editor/vendor/d3/d3.v3.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/node-red-pi">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.21655172">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/1ModuleTest/FileCopy.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4040404">
+          <caret line="20" column="43" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/2StateModule/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.103151865">
+          <caret line="4" column="21" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/mocha/mocha.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.11594203">
+          <caret line="972" column="1" selection-start-line="972" selection-start-column="1" selection-end-line="972" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/2StateModule/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/2StateModule/node_modules/state.js/lib/state.com.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="37" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/2StateModule/view/scripts/state-5.0.0.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.4010554">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/2StateModule/view/scripts/tabs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.73614776">
+          <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/2StateModule/view/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-49.74074">
+          <caret line="205" column="8" selection-start-line="205" selection-start-column="8" selection-end-line="205" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/2StateModule/view/1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.14774282">
+          <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nodes/core/core/20-inject.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.1635884">
+          <caret line="65" column="20" selection-start-line="65" selection-start-column="20" selection-end-line="65" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/vendor/vendor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/red/api/ui.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="29" column="23" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/red/api/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="48" column="46" selection-start-line="48" selection-start-column="46" selection-end-line="48" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/editor/templates/index.mst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/2StateModule/view/2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-21.74074">
+          <caret line="176" column="7" selection-start-line="176" selection-start-column="7" selection-end-line="176" selection-end-column="7" />
+          <folding>
+            <element signature="n#div#6;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/red/api/theme.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="40" column="9" selection-start-line="40" selection-start-column="9" selection-end-line="40" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nodes/99-sample.html.demo">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="66" column="10" selection-start-line="66" selection-start-column="10" selection-end-line="66" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/red/red.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5203" column="32" selection-start-line="5203" selection-start-column="32" selection-end-line="5203" selection-end-column="32" />
+          <folding>
+            <element signature="e#1536#1992#0" expanded="false" />
+            <element signature="e#6128#8643#0" expanded="false" />
+            <element signature="e#10220#10940#0" expanded="false" />
+            <element signature="e#11568#12227#0" expanded="false" />
+            <element signature="e#25370#28934#0" expanded="false" />
+            <element signature="e#29543#29699#0" expanded="false" />
+            <element signature="e#65747#74338#0" expanded="false" />
+            <element signature="e#75716#86302#0" expanded="false" />
+            <element signature="e#86925#94698#0" expanded="false" />
+            <element signature="e#95322#100170#0" expanded="false" />
+            <element signature="e#100799#105714#0" expanded="false" />
+            <element signature="e#106338#107989#0" expanded="false" />
+            <element signature="e#108617#117420#0" expanded="false" />
+            <element signature="e#223125#230165#0" expanded="false" />
+            <element signature="e#230795#233324#0" expanded="false" />
+            <element signature="e#233952#278166#0" expanded="false" />
+            <element signature="e#278793#285485#0" expanded="false" />
+            <element signature="e#303349#304756#0" expanded="false" />
+            <element signature="e#305380#317712#0" expanded="false" />
+            <element signature="e#318372#323756#0" expanded="false" />
+            <marker date="1445476471000" expanded="true" signature="17508:17605" placeholder="..." />
+            <marker date="1445476471000" expanded="true" signature="17694:17794" placeholder="..." />
+            <marker date="1445476471000" expanded="true" signature="17890:17909" placeholder="..." />
+            <marker date="1445476471000" expanded="true" signature="20006:20042" placeholder="..." />
+            <marker date="1445476471000" expanded="true" signature="20087:20115" placeholder="..." />
+            <marker date="1445476471000" expanded="true" signature="20204:20238" placeholder="..." />
+            <marker date="1445476471000" expanded="true" signature="79914:79969" placeholder="..." />
+            <marker date="1445476471000" expanded="true" signature="80024:80043" placeholder="..." />
+            <marker date="1445476471000" expanded="true" signature="80151:80166" placeholder="..." />
+            <marker date="1445476471000" expanded="true" signature="97083:97174" placeholder="..." />
+            <marker date="1445476471000" expanded="true" signature="98338:98429" placeholder="..." />
+            <marker date="1445476471000" expanded="true" signature="225879:225911" placeholder="..." />
+            <marker date="1445476471000" expanded="true" signature="226439:226471" placeholder="..." />
+            <marker date="1445476471000" expanded="true" signature="261019:261033" placeholder="..." />
+            <marker date="1445476471000" expanded="true" signature="280761:280788" placeholder="..." />
+            <marker date="1445476471000" expanded="true" signature="280900:281047" placeholder="..." />
+            <marker date="1445476471000" expanded="true" signature="291768:291785" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nodes/states/state.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nodes/states/state.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.66484267">
+          <caret line="36" column="9" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
           <folding />
         </state>
       </provider>

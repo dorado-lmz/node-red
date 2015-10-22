@@ -15,9 +15,9 @@
  **/
 RED.sidebar = (function() {
 
-    //$('#sidebar').tabs();
+    //$('#sidebar').tabs.js();
     var sidebar_tabs = RED.tabs.create({
-        id:"sidebar-tabs",
+        id:"sidebar-tabs.js",
         onchange:function(tab) {
             $("#sidebar-content").children().hide();
             if (tab.onchange) {
@@ -66,7 +66,7 @@ RED.sidebar = (function() {
             onselect:function() {
                 showSidebar(options.id);
             },
-            group: "sidebar-tabs"
+            group: "sidebar-tabs.js"
         });
 
         knownTabs[options.id] = options;

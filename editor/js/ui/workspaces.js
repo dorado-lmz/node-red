@@ -29,7 +29,7 @@ RED.workspaces = (function() {
             do {
                 workspaceIndex += 1;
                 //TODO: nls of Sheet
-            } while($("#workspace-tabs a[title='"+RED._('workspace.defaultName',{number:workspaceIndex})+"']").size() !== 0);
+            } while($("#workspace-tabs.js a[title='"+RED._('workspace.defaultName',{number:workspaceIndex})+"']").size() !== 0);
 
             ws = {type:"tab",id:tabId,label:RED._('workspace.defaultName',{number:workspaceIndex})};
             RED.nodes.addWorkspace(ws);
@@ -82,7 +82,7 @@ RED.workspaces = (function() {
     var workspace_tabs;
     function createWorkspaceTabs(){
         workspace_tabs = RED.tabs.create({
-            id: "workspace-tabs",
+            id: "workspace-tabs.js",
             onchange: function(tab) {
                 var event = {
                     old: activeWorkspace
