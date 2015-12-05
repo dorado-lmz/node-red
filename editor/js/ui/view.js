@@ -958,6 +958,7 @@ RED.view = (function() {
     }
 
     function nodeMouseUp(d) {
+
         if (dblClickPrimed && mousedown_node == d && clickElapsed > 0 && clickElapsed < 750) {
             mouse_mode = RED.state.DEFAULT;
             if (d.type != "subflow") {
@@ -1039,6 +1040,10 @@ RED.view = (function() {
                 }
             }
         }
+        if(event.altKey){
+            d.hierarchy = true;
+        }
+
         d.dirty = true;
         updateSelection();
         redraw();
@@ -1212,15 +1217,12 @@ RED.view = (function() {
                     l = (typeof l === "function" ? l.call(d) : l)||"";
 
                     if(d._def.markup){
-                        d.w = d._def.w;
-                        d.h = d._def.h;
+                        d.w = d._def.w/2;
+                        d.h = d._def.h/2;
                     }else{
                         d.w = Math.max(node_width,calculateTextWidth(l, "node_label", 50)+(d._def.inputs>0?7:0) );
                         d.h = Math.max(node_height,(d.outputs||0) * 15);
                     }
-
-
-
 
                     if (d._def.badge) {
                         var badge = node.append("svg:g").attr("class","node_badge_group");
@@ -1274,7 +1276,6 @@ RED.view = (function() {
 
                     var main = node.select('.node');
 
-
                     main.on("mouseup",nodeMouseUp)
                         .on("mousedown",nodeMouseDown)
                         .on("touchstart",function(d) {
@@ -1307,9 +1308,6 @@ RED.view = (function() {
                                 var node = d3.select(this);
                                 node.classed("node_hovered",false);
                         });
-
-
-
 
                    //node.append("rect").attr("class", "node-gradient-top").attr("rx", 6).attr("ry", 6).attr("height",30).attr("stroke","none").attr("fill","url(#gradient-top)").style("pointer-events","none");
                    //node.append("rect").attr("class", "node-gradient-bottom").attr("rx", 6).attr("ry", 6).attr("height",30).attr("stroke","none").attr("fill","url(#gradient-bottom)").style("pointer-events","none");

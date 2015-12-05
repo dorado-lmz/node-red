@@ -1,20 +1,17 @@
 <script type="text/javascript">
     RED.nodes.registerType('state',{
         category: 'basic',
-        color: '#34495e',
+        color: '#eee',
         defaults: {
             name: {value:""}
         },
-        eval:'div_node.style.borderRadius = "14px";div_node.style.width = "28px";',
-        inputs:1,
+        icon: "bridge.png",
+        display:"<div class='state-outer'></div>",
+        inputs:0,
         outputs:1,
-
         label: function() {
-            return this.name||"lower-case";
+            return this.name||"start";
         },
-        markup:'<circle fill="#34495e" r="14" class="node"></circle>',
-        w:28,
-        h:28
     });
 </script>
 
@@ -28,5 +25,10 @@
 <script type="text/x-red" data-help-name="state">
     <p>A simple node that converts the message payloads into all lower-case characters</p>
 </script>
+<style>
+    .state-outer{
+        background:#eee;
+    }
 
+</style>
 

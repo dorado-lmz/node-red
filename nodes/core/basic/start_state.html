@@ -1,0 +1,38 @@
+<script type="text/javascript">
+    RED.nodes.registerType('start_state',{
+        category: 'basic',
+        color: '#34495e',
+        defaults: {
+            name: {value:""}
+        },
+        display:"<div class='start-state-outer'></div>",
+        inputs:0,
+        outputs:1,
+        label: function() {
+            return this.name||"start";
+        },
+        markup:'<circle fill="#34495e" r="14" class="node"></circle>',
+        w:36,
+        h:36
+    });
+</script>
+
+<script type="text/x-red" data-template-name="start_state">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="start_state">
+    <p>A simple node that converts the message payloads into all lower-case characters</p>
+</script>
+<style>
+    .start-state-outer{
+        width:28px;
+        height:28px;
+        border-radius:14px;
+        background:#34495e;
+    }
+</style>
+

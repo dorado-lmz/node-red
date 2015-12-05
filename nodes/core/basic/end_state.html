@@ -1,0 +1,46 @@
+<script type="text/javascript">
+    RED.nodes.registerType('end_state',{
+        category: 'basic',
+        color: '#34495e',
+        defaults: {
+            name: {value:""}
+        },
+        eval:'div_node.style.borderRadius = "14px";div_node.style.width = "28px";',
+        display:"<div class='end-state-outer'><div class='end-state-inner'></div></div>",
+        inputs:1,
+        outputs:0,
+
+        label: function() {
+            return this.name||"end";
+        },
+        markup:'<g class="node"><circle fill="#eee" r="18" class="outer"/><circle fill="#34495e" r="10" class="inner"/></g>',
+        w:28,
+        h:28
+    });
+</script>
+
+<script type="text/x-red" data-template-name="end_state">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="end_state">
+    <p>A simple node that converts the message payloads into all lower-case characters</p>
+</script>
+<style>
+    .end-state-outer{
+        width:28px;
+        border-radius:14px;
+        background: #eeeeee;
+    }
+    .end-state-inner{
+        width:20px;
+        height:20px;
+        border-radius:10px;
+        background:#34495e;
+        margin:4px 0 0 4px;
+    }
+</style>
+

@@ -130,7 +130,14 @@ RED.palette = (function() {
             var category = def.category.replace(" ","_");
             var rootCategory = category.split("-")[0];
 
-            var div_node = document.createElement("div");
+            if(def.display){
+                var div_node =  $(def.display)[0];
+
+            }else{
+                var div_node = document.createElement("div");
+                div_node.style.backgroundColor = def.color;
+            }
+
             div_node.id = "palette_node_"+nodeTypeId;
             div_node.type = nt;
 
@@ -145,18 +152,13 @@ RED.palette = (function() {
 
             $('<div/>',{class:"palette_label"+(def.align=="right"?" palette_label_right":"")}).appendTo(div_node);
 
-            div_node.className="palette_node";
+            div_node.classList.add("palette_node");
 
 
             if (def.icon) {
                 var icon_url = (typeof def.icon === "function" ? def.icon.call({}) : def.icon);
                 var iconContainer = $('<div/>',{class:"palette_icon_container"+(def.align=="right"?" palette_icon_container_right":"")}).appendTo(div_node);
                 $('<div/>',{class:"palette_icon",style:"background-image: url(icons/"+icon_url+")"}).appendTo(iconContainer);
-            }
-
-            div_node.style.backgroundColor = def.color;
-            if(def.eval){
-                eval(def.eval);
             }
 
             if (def.outputs > 0) {
