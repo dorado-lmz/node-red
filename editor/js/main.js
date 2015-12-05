@@ -15,6 +15,7 @@
  **/
 var RED = (function() {
 
+    var debug = true;
 
     function loadNodeList() {
         $.ajax({
@@ -24,6 +25,11 @@ var RED = (function() {
             cache: false,
             url: 'nodes',
             success: function(data) {
+
+                if(debug){
+                    console.log(data);
+                }
+
                 RED.nodes.setNodeList(data);
 
                 var nsCount = 0;
@@ -228,5 +234,6 @@ var RED = (function() {
 
 
     return {
+        debug:debug
     };
 })();

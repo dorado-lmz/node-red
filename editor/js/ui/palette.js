@@ -17,7 +17,7 @@
 RED.palette = (function() {
 
     var exclusion = ['config','unknown','deprecated'];
-    var core = ['subflows', 'input', 'output', 'function', 'social', 'mobile', 'storage', 'analysis', 'advanced'];
+    var core = ['basic','subflows', 'input', 'output', 'function', 'social', 'mobile', 'storage', 'analysis', 'advanced'];
 
     var categoryContainers = {};
 
@@ -130,9 +130,9 @@ RED.palette = (function() {
             var category = def.category.replace(" ","_");
             var rootCategory = category.split("-")[0];
 
-            var d = document.createElement("div");
-            d.id = "palette_node_"+nodeTypeId;
-            d.type = nt;
+            var div_node = document.createElement("div");
+            div_node.id = "palette_node_"+nodeTypeId;
+            div_node.type = nt;
 
             var label;
 
@@ -143,29 +143,32 @@ RED.palette = (function() {
             }
 
 
-            $('<div/>',{class:"palette_label"+(def.align=="right"?" palette_label_right":"")}).appendTo(d);
+            $('<div/>',{class:"palette_label"+(def.align=="right"?" palette_label_right":"")}).appendTo(div_node);
 
-            d.className="palette_node";
+            div_node.className="palette_node";
 
 
             if (def.icon) {
                 var icon_url = (typeof def.icon === "function" ? def.icon.call({}) : def.icon);
-                var iconContainer = $('<div/>',{class:"palette_icon_container"+(def.align=="right"?" palette_icon_container_right":"")}).appendTo(d);
+                var iconContainer = $('<div/>',{class:"palette_icon_container"+(def.align=="right"?" palette_icon_container_right":"")}).appendTo(div_node);
                 $('<div/>',{class:"palette_icon",style:"background-image: url(icons/"+icon_url+")"}).appendTo(iconContainer);
             }
 
-            d.style.backgroundColor = def.color;
+            div_node.style.backgroundColor = def.color;
+            if(def.eval){
+                eval(def.eval);
+            }
 
             if (def.outputs > 0) {
                 var portOut = document.createElement("div");
                 portOut.className = "palette_port palette_port_output";
-                d.appendChild(portOut);
+                div_node.appendChild(portOut);
             }
 
             if (def.inputs > 0) {
                 var portIn = document.createElement("div");
                 portIn.className = "palette_port palette_port_input";
-                d.appendChild(portIn);
+                div_node.appendChild(portIn);
             }
 
             if ($("#palette-base-category-"+rootCategory).length === 0) {
@@ -182,11 +185,11 @@ RED.palette = (function() {
                 $("#palette-base-category-"+rootCategory).append('<div id="palette-'+category+'"></div>');
             }
 
-            $("#palette-"+category).append(d);
-            d.onmousedown = function(e) { e.preventDefault(); };
+            $("#palette-"+category).append(div_node);
+            div_node.onmousedown = function(e) { e.preventDefault(); };
 
             RED.popover.create({
-                target:$(d),
+                target:$(div_node),
                 content: "hi",
                 delay: { show: 750, hide: 50 }
             });
@@ -199,18 +202,18 @@ RED.palette = (function() {
             //     html: true,
             //     container:'body'
             // });
-            $(d).click(function() {
+            $(div_node).click(function() {
                 RED.view.focus();
                 var helpText;
                 if (nt.indexOf("subflow:") === 0) {
                     helpText = marked(RED.nodes.subflow(nt.substring(8)).info||"");
                 } else {
-                    helpText = $("script[data-help-name|='"+d.type+"']").html()||"";
+                    helpText = $("script[data-help-name|='"+div_node.type+"']").html()||"";
                 }
                 var help = '<div class="node-help">'+helpText+"</div>";
                 RED.sidebar.info.set(help);
             });
-            $(d).draggable({
+            $(div_node).draggable({
                 helper: 'clone',
                 appendTo: 'body',
                 revert: true,
@@ -220,13 +223,13 @@ RED.palette = (function() {
 
             var nodeInfo = null;
             if (def.category == "subflows") {
-                $(d).dblclick(function(e) {
+                $(div_node).dblclick(function(e) {
                     RED.workspaces.show(nt.substring(8));
                     e.preventDefault();
                 });
                 nodeInfo = marked(def.info||"");
             }
-            setLabel(nt,$(d),label,nodeInfo);
+            setLabel(nt,$(div_node),label,nodeInfo);
 
             var categoryNode = $("#palette-container-"+category);
             if (categoryNode.find(".palette_node").length === 1) {

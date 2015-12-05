@@ -151,6 +151,7 @@ RED.nodes = (function() {
     }
 
     function addNode(n) {
+
         if (n.type.indexOf("subflow") !== 0) {
             n["_"] = n._def._;
         }

@@ -179,7 +179,36 @@
 <script src="vendor/vendor.js"></script>
 <script src="vendor/ace/ace.js"></script>
 <script src="vendor/ace/ext-language_tools.js"></script>
-<script src="{{ asset.red }}"></script>
+<!--<script src="{{ asset.red }}"></script>-->
+<script src="editor/js/vectorizer.js"></script>
+
+<script src="editor/js/main.js"></script>
+<script src="editor/js/events.js"></script>
+<script src="editor/js/i18n.js"></script>
+<script src="editor/js/settings.js"></script>
+<script src="editor/js/user.js"></script>
+<script src="editor/js/comms.js"></script>
+<script src="editor/js/ui/state.js"></script>
+<script src="editor/js/nodes.js"></script>
+<script src="editor/js/history.js"></script>
+<script src="editor/js/validators.js"></script>
+<script src="editor/js/ui/deploy.js"></script>
+<script src="editor/js/ui/menu.js"></script>
+<script src="editor/js/ui/keyboard.js"></script>
+<script src="editor/js/ui/tabs.js"></script>
+<script src="editor/js/ui/popover.js"></script>
+<script src="editor/js/ui/workspaces.js"></script>
+<script src="editor/js/ui/view.js"></script>
+<script src="editor/js/ui/sidebar.js"></script>
+<script src="editor/js/ui/palette.js"></script>
+<script src="editor/js/ui/tab-info.js"></script>
+<script src="editor/js/ui/tab-config.js"></script>
+<script src="editor/js/ui/editor.js"></script>
+<script src="editor/js/ui/clipboard.js"></script>
+<script src="editor/js/ui/library.js"></script>
+<script src="editor/js/ui/notifications.js"></script>
+<script src="editor/js/ui/subflow.js"></script>
+<script src="editor/js/ui/touch/radialMenu.js"></script>
 
 </body>
 </html>

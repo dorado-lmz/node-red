@@ -205,6 +205,9 @@ if (settings.httpNodeRoot !== false) {
     app.use(settings.httpNodeRoot,RED.httpNode);
 }
 
+//把editor目录下的文件挂在/
+app.use("/editor/",express.static("editor"));
+
 if (settings.httpStatic) {
     settings.httpStaticAuth = settings.httpStaticAuth || settings.httpAuth;
     if (settings.httpStaticAuth) {

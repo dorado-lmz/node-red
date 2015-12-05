@@ -327,6 +327,7 @@ RED.view = (function() {
                 nn.type = selected_tool;
                 nn._def = RED.nodes.getType(nn.type);
 
+
                 if (!m) {
                     nn.inputs = nn._def.inputs || 0;
                     nn.outputs = nn._def.outputs;
@@ -374,6 +375,8 @@ RED.view = (function() {
                 moving_set.push({n:nn});
                 updateActiveNodes();
                 updateSelection();
+
+
                 redraw();
 
                 if (nn._def.autoedit) {
@@ -1197,16 +1200,27 @@ RED.view = (function() {
             }
 
             var node = vis.selectAll(".nodegroup").data(activeNodes,function(d){return d.id});
+            console.log(activeNodes);
             node.exit().remove();
 
             var nodeEnter = node.enter().insert("svg:g").attr("class", "node nodegroup");
             nodeEnter.each(function(d,i) {
                     var node = d3.select(this);
+                    var vnode =  V(this);
                     node.attr("id",d.id);
                     var l = d._def.label;
                     l = (typeof l === "function" ? l.call(d) : l)||"";
-                    d.w = Math.max(node_width,calculateTextWidth(l, "node_label", 50)+(d._def.inputs>0?7:0) );
-                    d.h = Math.max(node_height,(d.outputs||0) * 15);
+
+                    if(d._def.markup){
+                        d.w = d._def.w;
+                        d.h = d._def.h;
+                    }else{
+                        d.w = Math.max(node_width,calculateTextWidth(l, "node_label", 50)+(d._def.inputs>0?7:0) );
+                        d.h = Math.max(node_height,(d.outputs||0) * 15);
+                    }
+
+
+
 
                     if (d._def.badge) {
                         var badge = node.append("svg:g").attr("class","node_badge_group");
@@ -1252,13 +1266,16 @@ RED.view = (function() {
                             .on("touchstart",nodeButtonClicked)
                     }
 
-                    var mainRect = node.append("rect")
-                        .attr("class", "node")
-                        .classed("node_unknown",function(d) { return d.type == "unknown"; })
-                        .attr("rx", 5)
-                        .attr("ry", 5)
-                        .attr("fill",function(d) { return d._def.color;})
-                        .on("mouseup",nodeMouseUp)
+                    if(d._def.markup){
+                        vnode.append(V(d._def.markup));
+                    }else{
+                        vnode.append(V("rect",{class:'node',rx:5,ry:5,fill: d._def.color}).toggleClass("node_unknown",d.type == "unknown"));
+                    }
+
+                    var main = node.select('.node');
+
+
+                    main.on("mouseup",nodeMouseUp)
                         .on("mousedown",nodeMouseDown)
                         .on("touchstart",function(d) {
                             var obj = d3.select(this);
@@ -1290,6 +1307,9 @@ RED.view = (function() {
                                 var node = d3.select(this);
                                 node.classed("node_hovered",false);
                         });
+
+
+
 
                    //node.append("rect").attr("class", "node-gradient-top").attr("rx", 6).attr("ry", 6).attr("height",30).attr("stroke","none").attr("fill","url(#gradient-top)").style("pointer-events","none");
                    //node.append("rect").attr("class", "node-gradient-bottom").attr("rx", 6).attr("ry", 6).attr("height",30).attr("stroke","none").attr("fill","url(#gradient-bottom)").style("pointer-events","none");
@@ -1382,6 +1402,7 @@ RED.view = (function() {
             });
 
             node.each(function(d,i) {
+
                     if (d.dirty) {
                         dirtyNodes[d.id] = d;
                         //if (d.x < -50) deleteSelection();  // Delete nodes if dragged back to palette
@@ -1398,7 +1419,7 @@ RED.view = (function() {
 
                         if (mouse_mode != RED.state.MOVING_ACTIVE) {
                             thisNode.selectAll(".node")
-                                .attr("width",function(d){return d.w})
+                                .attr("width",function(d){console.log(d.w);return d.w})
                                 .attr("height",function(d){return d.h})
                                 .classed("node_selected",function(d) { return d.selected; })
                                 .classed("node_highlighted",function(d) { return d.highlighted; })
