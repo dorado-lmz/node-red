@@ -27,7 +27,7 @@ var RED = (function() {
             success: function(data) {
 
                 if(debug){
-                    console.log(data);
+                   // console.log(data);
                 }
 
                 RED.nodes.setNodeList(data);

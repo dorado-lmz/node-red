@@ -53,6 +53,8 @@ RED.view = (function() {
         clickTime = 0,
         clickElapsed = 0;
 
+    var  hiddenParentNode = [];//需要隐藏子node的父node id
+
     var clipboard = "";
 
     var status_colours = {
@@ -230,6 +232,7 @@ RED.view = (function() {
 
 
     var drag_line = vis.append("svg:path").attr("class", "drag_line");
+    var debug_line = vis.append("svg:path").attr("class", "debug_line");
 
     function updateActiveNodes() {
         var activeWorkspace = RED.workspaces.active();
@@ -299,6 +302,7 @@ RED.view = (function() {
             accept:".palette_node",
             drop: function( event, ui ) {
                 d3.event = event;
+
                 var selected_tool = ui.draggable[0].type;
 
                 var m = /^subflow:(.+)$/.exec(selected_tool);
@@ -317,12 +321,14 @@ RED.view = (function() {
                 }
 
                 var mousePos = d3.touches(this)[0]||d3.mouse(this);
+
                 mousePos[1] += this.scrollTop;
                 mousePos[0] += this.scrollLeft;
                 mousePos[1] /= scaleFactor;
                 mousePos[0] /= scaleFactor;
 
                 var nn = { id:(1+Math.random()*4294967295).toString(16),x: mousePos[0],y:mousePos[1],w:node_width,z:RED.workspaces.active()};
+
 
                 nn.type = selected_tool;
                 nn._def = RED.nodes.getType(nn.type);
@@ -349,6 +355,12 @@ RED.view = (function() {
 
                 nn.changed = true;
                 nn.h = Math.max(node_height,(nn.outputs||0) * 15);
+
+                nn.bbox = g.rect(nn.x,nn.y,nn.w,nn.h);
+
+                containsRect(nn);
+
+
                 var historyEvent = {
                     t:'add',
                     nodes:[nn.id],
@@ -394,6 +406,27 @@ RED.view = (function() {
 
     }
 
+    function containsRect(nn){
+        for(index in activeNodes){
+            if(activeNodes[index].id !==nn.id  && activeNodes[index].bbox.containsRect(nn.bbox)){
+                nn.parentNode = activeNodes[index].id;
+                if(!activeNodes[index].childNodes){
+                    activeNodes[index].childNodes = [];
+                }
+                activeNodes[index].childNodes.push(nn.id);
+                console.log(nn.name || nn.type + " move in " + activeNodes[index].name || activeNodes[index].type);
+                return;
+            }
+
+        }
+        if(nn.parentNode){
+            var parent = RED.nodes.node(nn.parentNode);
+
+            console.log(nn.name || nn.type + " move out " + parent.name || parent.type);
+            nn.parentNode = undefined;//TODO remove childNodes
+        }
+
+    }
     function canvasMouseDown() {
         if (!mousedown_node && !mousedown_link) {
             selected_link = null;
@@ -422,7 +455,22 @@ RED.view = (function() {
         }
     }
 
+    function movingNodeOffset(node, mousePos) {
+        node.n.mouseoffsetx = mousePos[0] - mouse_offset[0];
+        node.n.mouseoffsety = mousePos[1] - mouse_offset[1];//mouse position relate to the origin of node(x,y)
+
+
+        node.n.x += node.n.mouseoffsetx;
+        node.n.y += node.n.mouseoffsety;
+
+        node.n.bbox.x = node.n.x;
+        node.n.bbox.y = node.n.y;
+
+        node.n.dirty = true;
+    }
+
     function canvasMouseMove() {
+
         mouse_position = d3.touches(this)[0]||d3.mouse(this);
         // Prevent touch scrolling...
         //if (d3.touches(this)[0]) {
@@ -493,14 +541,25 @@ RED.view = (function() {
                 }
             }
 
+            //drag_line.attr("d",
+            //    "M "+(mousedown_node.x+sc*mousedown_node.w/2)+" "+(mousedown_node.y+portY)+
+            //    " C "+(mousedown_node.x+sc*(mousedown_node.w/2+node_width*scale))+" "+(mousedown_node.y+portY+scaleY*node_height)+" "+
+            //    (mousePos[0]-sc*(scale)*node_width)+" "+(mousePos[1]-scaleY*node_height)+" "+
+            //    mousePos[0]+" "+mousePos[1]
+            //    );
+
+            var circle_offsetx = mousedown_node.circle?mousedown_node.w/2:0;
+            var circle_offsety = mousedown_node.circle?mousedown_node.h/2:0;
             drag_line.attr("d",
-                "M "+(mousedown_node.x+sc*mousedown_node.w/2)+" "+(mousedown_node.y+portY)+
-                " C "+(mousedown_node.x+sc*(mousedown_node.w/2+node_width*scale))+" "+(mousedown_node.y+portY+scaleY*node_height)+" "+
+                "M "+(mousedown_node.x-(circle_offsetx)+sc*mousedown_node.w)+" "+(mousedown_node.y-(circle_offsety)+mousedown_node.h*1/2+portY)+
+                " C "+(mousedown_node.x+sc*(mousedown_node.w+node_width*scale))+" "+(mousedown_node.y+portY+scaleY*node_height)+" "+
                 (mousePos[0]-sc*(scale)*node_width)+" "+(mousePos[1]-scaleY*node_height)+" "+
                 mousePos[0]+" "+mousePos[1]
-                );
+            );
+
             d3.event.preventDefault();
-        } else if (mouse_mode == RED.state.MOVING) {
+        }
+        else if (mouse_mode == RED.state.MOVING) {
             mousePos = d3.mouse(document.body);
             if (isNaN(mousePos[0])) {
                 mousePos = d3.touches(document.body)[0];
@@ -510,7 +569,9 @@ RED.view = (function() {
                 mouse_mode = RED.state.MOVING_ACTIVE;
                 clickElapsed = 0;
             }
-        } else if (mouse_mode == RED.state.MOVING_ACTIVE || mouse_mode == RED.state.IMPORT_DRAGGING) {
+
+        }
+        else if (mouse_mode == RED.state.MOVING_ACTIVE || mouse_mode == RED.state.IMPORT_DRAGGING) {
             mousePos = mouse_position;
             var node;
             var i;
@@ -522,11 +583,51 @@ RED.view = (function() {
                     node.n.ox = node.n.x;
                     node.n.oy = node.n.y;
                 }
-                node.n.x = mousePos[0]+node.dx;
-                node.n.y = mousePos[1]+node.dy;
-                node.n.dirty = true;
-                minX = Math.min(node.n.x-node.n.w/2-5,minX);
-                minY = Math.min(node.n.y-node.n.h/2-5,minY);
+                //node.n.x = mousePos[0]+node.dx;
+                //node.n.y = mousePos[1]+node.dy;
+
+
+                if(node.n.childNodes){
+                    for(index in node.n.childNodes){
+                        movingNodeOffset({n:RED.nodes.node(node.n.childNodes[index])}, mousePos);
+                    }
+                }
+
+
+                if(node.n.parentNode){
+                    var parent = RED.nodes.node(node.n.parentNode);
+                    if(parent){
+                        if(parent.bbox.containsPoint(node.n.bbox.origin()) &&
+                            parent.bbox.containsPoint(node.n.bbox.topRight()) &&
+                            parent.bbox.containsPoint(node.n.bbox.corner()) &&
+                            parent.bbox.containsPoint(node.n.bbox.bottomLeft())){
+
+                            node.n.priviousBbox = {x:node.n.bbox.x,y:node.n.bbox.y};
+                            movingNodeOffset(node, mousePos);
+
+                        }else{
+                            console.log("out....");
+                            node.n.x = node.n.priviousBbox.x;
+                            node.n.y = node.n.priviousBbox.y;
+                            node.n.bbox.x = node.n.x;
+                            node.n.bbox.y = node.n.y;
+                        }
+                    }
+                }else{
+
+                    //mousedown_node.mouseoffsetx = mouse_offset[0]-mousedown_node.x;
+                    //mousedown_node.mouseoffsety = mouse_offset[1]-mousedown_node.y;//mouse position relate to the origin of node(x,y)
+                    movingNodeOffset(node, mousePos);
+
+                }
+
+
+               // containsRect(node.n);
+                mouse_offset[0] = mousePos[0];
+                mouse_offset[1] = mousePos[1];
+
+                //minX = Math.min(node.n.x-node.n.w/2-5,minX);//node move border'x
+                //minY = Math.min(node.n.y-node.n.h/2-5,minY);//node move border'y
             }
             if (minX !== 0 || minY !== 0) {
                 for (i = 0; i<moving_set.length; i++) {
@@ -552,6 +653,22 @@ RED.view = (function() {
                 }
             }
         }
+        else if(mouse_mode == RED.state.RESIZE){
+            var move_x = d3.event.clientX - mousedown_node.grabx;
+            var move_y = d3.event.clientY - mousedown_node.graby;
+
+            if(Math.abs(move_x)>10 || Math.abs(move_y)>10){
+                mousedown_node.grabx = d3.event.clientX;
+                mousedown_node.graby = d3.event.clientY;
+                mousedown_node.w = Math.max(80,mousedown_node.w + move_x);
+                mousedown_node.h = Math.max(30,mousedown_node.h + move_y);
+                mousedown_node.bbox.width = mousedown_node.w;
+                mousedown_node.bbox.height = mousedown_node.h;
+                mousedown_node.dirty = true;
+                redraw();
+            }
+
+            console.log('resize');}
         if (mouse_mode !== 0) {
             redraw();
         }
@@ -621,6 +738,7 @@ RED.view = (function() {
             updateActiveNodes();
             RED.nodes.dirty(true);
         }
+        if (mouse_mode == RED.state.RESIZE){console.log('resize up');}
         resetMouseVars();
         redraw();
     }
@@ -975,6 +1093,7 @@ RED.view = (function() {
     }
 
     function nodeMouseDown(d) {
+        console.log($(this));
         focusView();
         //var touch0 = d3.event;
         //var pos = [touch0.pageX,touch0.pageY];
@@ -1034,14 +1153,34 @@ RED.view = (function() {
                     moving_set[i].dx = moving_set[i].n.x-mouse[0];
                     moving_set[i].dy = moving_set[i].n.y-mouse[1];
                 }
-                mouse_offset = d3.mouse(document.body);
+                mouse_offset = d3.mouse(document.getElementById('chart'));
                 if (isNaN(mouse_offset[0])) {
                     mouse_offset = d3.touches(document.body)[0];
                 }
+
             }
         }
+
+
+
+        //show hierarchy state
         if(event.altKey){
             d.hierarchy = true;
+
+            var index = isHiddenParentNode(d);
+            if(index){
+                d.w = d.previousW;
+                d.h = d.previousH;
+                hiddenParentNode.splice(index,1);
+            }else{
+                d.previousW = d.w;
+                d.previousH = d.h
+                d.w = 200;//TODO accoding to inside node to decide width and height
+                d.h = 100;
+
+                hiddenParentNode.push(d.id);
+            }
+
         }
 
         d.dirty = true;
@@ -1067,6 +1206,7 @@ RED.view = (function() {
         } else {
             RED.notify(RED._("notification.warning", {message:RED._("notification.warnings.nodeActionDisabled")}),"warning");
         }
+
         d3.event.preventDefault();
     }
 
@@ -1205,11 +1345,12 @@ RED.view = (function() {
             }
 
             var node = vis.selectAll(".nodegroup").data(activeNodes,function(d){return d.id});
-            console.log(activeNodes);
+
             node.exit().remove();
 
             var nodeEnter = node.enter().insert("svg:g").attr("class", "node nodegroup");
             nodeEnter.each(function(d,i) {
+
                     var node = d3.select(this);
                     var vnode =  V(this);
                     node.attr("id",d.id);
@@ -1217,8 +1358,10 @@ RED.view = (function() {
                     l = (typeof l === "function" ? l.call(d) : l)||"";
 
                     if(d._def.markup){
-                        d.w = d._def.w/2;
-                        d.h = d._def.h/2;
+                        d.w = d._def.w;
+                        d.h = d._def.h;
+                        d.circle = true;
+
                     }else{
                         d.w = Math.max(node_width,calculateTextWidth(l, "node_label", 50)+(d._def.inputs>0?7:0) );
                         d.h = Math.max(node_height,(d.outputs||0) * 15);
@@ -1268,6 +1411,9 @@ RED.view = (function() {
                             .on("touchstart",nodeButtonClicked)
                     }
 
+
+                    vis.insert('rect','.debug_line').attr('id','box'+ d.id.substring(0,5));
+
                     if(d._def.markup){
                         vnode.append(V(d._def.markup));
                     }else{
@@ -1275,6 +1421,21 @@ RED.view = (function() {
                     }
 
                     var main = node.select('.node');
+                    node.style("cursor","se-resize");
+
+                    //    .on("mousemove",function(d){
+                    //    if(d.resize){
+                    //        d.w = d.w + d3.event.clientX - d.grabx;
+                    //        d.h = d.h + d3.event.clientY - d.graby;
+                    //        d.dirty = true;
+                    //        redraw();
+                    //    }
+                    //
+                    //
+                    //}).on("mouseup",function(){
+                    //    d.resize = false;
+                    //
+                    //});
 
                     main.on("mouseup",nodeMouseUp)
                         .on("mousedown",nodeMouseDown)
@@ -1299,6 +1460,7 @@ RED.view = (function() {
                             nodeMouseUp.call(this,d);
                         })
                         .on("mouseover",function(d) {
+
                                 if (mouse_mode === 0) {
                                     var node = d3.select(this);
                                     node.classed("node_hovered",true);
@@ -1397,9 +1559,27 @@ RED.view = (function() {
                     //node.append("path").attr("class","node_error").attr("d","M 3,-3 l 10,0 l -5,-8 z");
                     node.append("image").attr("class","node_error hidden").attr("xlink:href","icons/node-error.png").attr("x",0).attr("y",-6).attr("width",10).attr("height",9);
                     node.append("image").attr("class","node_changed hidden").attr("xlink:href","icons/node-changed.png").attr("x",12).attr("y",-6).attr("width",10).attr("height",10);
+                    node.select('.node_changed').on("mousedown",function(d) {
+                        mousedown_node = d;
+                        d.grabx = d3.event.clientX;
+                        d.graby = d3.event.clientY;
+                        mouse_mode = RED.state.RESIZE;
+                    });
+
             });
 
             node.each(function(d,i) {
+
+                    if(d.parentNode){
+                        if(isHiddenParentNode({id:d.parentNode})){
+                            d3.select(this).attr("display",'none');
+                            d.hidden = true;
+                        }else if(d.hidden){
+                            d.hidden = false;
+                            d3.select(this).attr("display",'block');
+                        }
+
+                    }
 
                     if (d.dirty) {
                         dirtyNodes[d.id] = d;
@@ -1412,12 +1592,17 @@ RED.view = (function() {
                             d.resize = false;
                         }
                         var thisNode = d3.select(this);
-                        //thisNode.selectAll(".centerDot").attr({"cx":function(d) { return d.w/2;},"cy":function(d){return d.h/2}});
-                        thisNode.attr("transform", function(d) { return "translate(" + (d.x-d.w/2) + "," + (d.y-d.h/2) + ")"; });
 
+                        //thisNode.selectAll(".centerDot").attr({"cx":function(d) { return d.w/2;},"cy":function(d){return d.h/2}});
+                        //thisNode.attr("transform", function(d) { return "translate(" + (d.x-d.w/2) + "," + (d.y-d.h/2) + ")"; });
+                        if (mouse_mode != RED.state.MOVING) {
+                            thisNode.attr("transform", function (d) {
+                                return "translate(" + (d.x + (d.mouseoffsetx | 0)) + "," + (d.y + (d.mouseoffsety | 0)) + ")";
+                            });
+                        }
                         if (mouse_mode != RED.state.MOVING_ACTIVE) {
                             thisNode.selectAll(".node")
-                                .attr("width",function(d){console.log(d.w);return d.w})
+                                .attr("width",function(d){return d.w})
                                 .attr("height",function(d){return d.h})
                                 .classed("node_selected",function(d) { return d.selected; })
                                 .classed("node_highlighted",function(d) { return d.highlighted; })
@@ -1461,14 +1646,21 @@ RED.view = (function() {
                                 .on("mouseout",function(d,i) { var port = d3.select(this); port.classed("port_hovered",false);});
 
                             d._ports.exit().remove();
+
+                            var w = d.w;
+                            var h = d.h;
+                            var circle = d.circle;
+
+
                             if (d._ports) {
                                 numOutputs = d.outputs || 1;
                                 y = (d.h/2)-((numOutputs-1)/2)*13;
                                 var x = d.w - 5;
+
                                 d._ports.each(function(d,i) {
                                         var port = d3.select(this);
                                         //port.attr("y",(y+13*i)-5).attr("x",x);
-                                        port.attr("transform", function(d) { return "translate("+x+","+((y+13*i)-5)+")";});
+                                        port.attr("transform", function(d) { return "translate("+(circle?x-w/2:x)+","+(circle?(y+13*i)-5-h/2:(y+13*i)-5)+")";});
                                 });
                             }
                             thisNode.selectAll('text.node_label').text(function(d,i){
@@ -1513,7 +1705,8 @@ RED.view = (function() {
                             thisNode.selectAll(".node_tools").attr("x",function(d){return d.w-35;}).attr("y",function(d){return d.h-20;});
 
                             thisNode.selectAll(".node_changed")
-                                .attr("x",function(d){return d.w-10})
+                                .attr("x",function(d){return d.circle? d.w-10- d.w/2:d.w-10})
+                                .attr('y',function(d){return d.circle? -d.h+10:-5})
                                 .classed("hidden",function(d) { return !d.changed; });
 
                             thisNode.selectAll(".node_error")
@@ -1522,7 +1715,7 @@ RED.view = (function() {
 
                             thisNode.selectAll(".port_input").each(function(d,i) {
                                     var port = d3.select(this);
-                                    port.attr("transform",function(d){return "translate(-5,"+((d.h/2)-5)+")";})
+                                    port.attr("transform",function(d){return "translate("+(circle?-5-w/2:-5)+","+(circle?((d.h/2)-5)-h/2:((d.h/2)-5))+")";})
                             });
 
                             thisNode.selectAll(".node_icon").attr("y",function(d){return (d.h-d3.select(this).attr("height"))/2;});
@@ -1599,6 +1792,9 @@ RED.view = (function() {
 
                         d.dirty = false;
                     }
+
+
+                vis.select("#box"+ d.id.substring(0,5)).attr('fill','none').attr('stroke-width',3).attr('stroke','red').attr("x", d.circle?d.bbox.x- d.w/2:d.bbox.x).attr('y', d.circle? d.bbox.y- d.h/2:d.bbox.y).attr('width', d.w).attr('height', d.h);
             });
             var link = vis.selectAll(".link").data(
                 activeLinks,
@@ -1606,6 +1802,9 @@ RED.view = (function() {
                     return d.source.id+":"+d.sourcePort+":"+d.target.id+":"+d.target.i;
                 }
             );
+
+
+
             var linkEnter = link.enter().insert("g",".node").attr("class","link");
 
             linkEnter.each(function(d,i) {
@@ -1674,10 +1873,20 @@ RED.view = (function() {
                         d.x2 = d.target.x-d.target.w/2;
                         d.y2 = d.target.y;
 
-                        return "M "+(d.source.x+d.source.w/2)+" "+(d.source.y+y)+
-                            " C "+(d.source.x+d.source.w/2+scale*node_width)+" "+(d.source.y+y+scaleY*node_height)+" "+
-                            (d.target.x-d.target.w/2-scale*node_width)+" "+(d.target.y-scaleY*node_height)+" "+
-                            (d.target.x-d.target.w/2)+" "+d.target.y;
+
+
+                        var source_circle_offsetx = d.source.circle?d.source.w/2:0;
+                        var source_circle_offsety = d.source.circle?d.source.h/2:0;
+                        var target_circle_offsetx = d.target.circle?d.target.w/2:0;
+                        var target_circle_offsety = d.target.circle?d.target.h/2:0;
+                        //return "M "+(d.source.x+d.source.w/2)+" "+(d.source.y+y)+
+                        //    " C "+(d.source.x+d.source.w/2+scale*node_width)+" "+(d.source.y+y+scaleY*node_height)+" "+
+                        //    (d.target.x-d.target.w/2-scale*node_width)+" "+(d.target.y-scaleY*node_height)+" "+
+                        //    (d.target.x-d.target.w/2)+" "+d.target.y;
+                        return "M "+(d.source.x+d.source.w-source_circle_offsetx)+" "+(d.source.y+d.source.h/2+y-source_circle_offsety)+
+                            " C "+(d.source.x+d.source.w+scale*node_width)+" "+(d.source.y+d.source.h/2+y+scaleY*node_height)+" "+
+                            (d.target.x-d.target.w-scale*node_width)+" "+(d.target.y+d.source.h/2-scaleY*node_height)+" "+
+                            (d.target.x-target_circle_offsetx)+" "+(d.target.y+d.target.h/2-target_circle_offsety);
                     });
                 }
             })
@@ -1696,7 +1905,6 @@ RED.view = (function() {
                 }
             ).classed("link_selected", false);
         }
-
 
         if (d3.event) {
             d3.event.preventDefault();
@@ -1808,6 +2016,19 @@ RED.view = (function() {
                 RED.notify(RED._("notification.error",{message:error.message}),"error");
             }
         }
+    }
+
+    /**
+     * is hiddenParentNode contains the node named n
+     */
+    function isHiddenParentNode(n){
+        for(var index in hiddenParentNode){
+            if(hiddenParentNode[index] == n.id){
+                return index;
+            }
+        }
+
+        return false;
     }
 
     return {
