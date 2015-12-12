@@ -182,6 +182,8 @@
 <!--<script src="{{ asset.red }}"></script>-->
 <script src="editor/js/vectorizer.js"></script>
 <script src="editor/js/geometry.js"></script>
+<script src="editor/js/lib/flowchart.js"></script>
+
 
 <script src="editor/js/main.js"></script>
 <script src="editor/js/events.js"></script>

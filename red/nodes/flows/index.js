@@ -86,6 +86,9 @@ function setConfig(_config,type) {
 
     var diff;
     var newFlowConfig = flowUtil.parseConfig(clone(config));
+
+    flowUtil.generateCode(newFlowConfig); //generate state machine code
+
     if (type !== 'full' && type !== 'load') {
         diff = flowUtil.diffConfigs(activeFlowConfig,newFlowConfig);
     }

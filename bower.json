@@ -1,0 +1,31 @@
+{
+  "name": "node-red",
+  "description": "A visual tool for wiring the Internet of Things",
+  "main": "red/red.js",
+  "authors": [
+    "[object Object]",
+    "[object Object]"
+  ],
+  "license": "Apache-2.0",
+  "keywords": [
+    "editor",
+    "messaging",
+    "iot",
+    "m2m",
+    "pi",
+    "arduino",
+    "beaglebone",
+    "ibm",
+    "flow"
+  ],
+  "homepage": "https://github.com/node-red/node-red",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "editor/js",
+    "test",
+    "tests"
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "name": "state",
+  "version": "5.6.5",
+  "homepage": "https://github.com/steelbreeze/state.js",
+  "authors": [
+    "David Mesquita-Morris <mesmo@steelbreeze.net>"
+  ],
+  "description": "Hierarchical finite state machine",
+  "main": "lib/state.min.js",
+  "moduleType": [
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "state machine",
+    "finite state machine",
+    "uml",
+    "finite",
+    "state",
+    "machine",
+    "region",
+    "orthogonal",
+    "hierarchical",
+    "pseudo",
+    "final",
+    "initial",
+    "deep",
+    "shallow",
+    "history",
+    "fsm",
+    "junction",
+    "choice",
+    "transition",
+    "completion"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "package.json",
+    "tsconfig.json",
+    "coverage",
+    "scripts",
+    "src",
+    "test"
+  ],
+  "_release": "5.6.5",
+  "_resolution": {
+    "type": "version",
+    "tag": "v5.6.5",
+    "commit": "b0de1aaac1b336c9f72c20b5541b899a7a160672"
+  },
+  "_source": "git://github.com/steelbreeze/state.js.git",
+  "_target": "~5.6.5",
+  "_originalSource": "state",
+  "_direct": true
+}

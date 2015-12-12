@@ -17,6 +17,9 @@ var clone = require("clone");
 var redUtil = require("../../util");
 var subflowInstanceRE = /^subflow:(.+)$/;
 var typeRegistry = require("../registry");
+var statejs = require("state.js");
+var uglify = require("uglify-js");
+var fs = require('fs');
 
 function diffNodes(oldNode,newNode) {
     if (oldNode == null) {
@@ -323,5 +326,159 @@ module.exports = {
         // }
 
         return diff;
+    },
+
+    generateCode:function(config){
+
+        var stateMachine = {};
+        stateMachine.allStates = {};
+        stateMachine.allTransition = {};
+        stateMachine.flows = {};
+
+        var flows = config.flows;
+
+        for(var prop in flows){
+            if(flows.hasOwnProperty(prop)){
+                var flow = flows[prop];
+                stateMachine.flows[prop] = flow;
+                flow.model = {
+                    name:'_m'+prop.substring(0,5),
+                    code:function(){return 'var '+this.name+'=new state.StateMachine("'+ this.name +'");';}
+                };
+                flow.states = {};
+                flow.transitions = {};
+                for(var key in flow.nodes){
+
+                    var node = flow.nodes[key];
+
+                    if(node.type.indexOf('state')!=-1){
+                        stateMachine.allStates[node.id] = node;
+                        switch (node.type){
+                            case 'state':
+                                node.varname = this.genVarName(node);
+                                node.code = 'var '+ node.varname+'=new state.State("'+node.varname+'",'+flow.model.name+');';
+                                break;
+                            case 'end_state':
+                                node.varname = this.genVarName(node);
+                                node.code = 'var '+ node.varname+'=new state.State("'+node.varname+'",'+flow.model.name+');';
+                                break;
+                            case 'start_state':
+                                node.varname = this.genVarName(node);
+                                node.code = 'var '+ node.varname +'=new state.PseudoState("'+node.varname+'",'+flow.model.name+',state.PseudoStateKind.Initial);';
+                                break;
+
+                        }
+                        flow.states[node.id] = node;
+
+                    }
+                }
+                var states = flow.states;
+                for(var prop in states) {
+                    var node;
+                    if (states.hasOwnProperty(prop)) {
+                        var state = states[prop];
+                        var numOutputs = state.wires.length;
+                        if(numOutputs>0){
+                            for (var i = 0; i < numOutputs; i++) {
+                                var wires = state.wires[i];
+                                for (var j = 0; j < wires.length; j++) {
+                                    node = stateMachine.allStates[wires[j]];
+                                    if(node){
+                                        var trasition = {
+                                            start:prop,
+                                            end:node.id,
+                                            'guard-condition':'',
+                                            event:'',
+                                            action:[],
+                                            code:state.varname+'.to'+'('+node.varname+');'
+                                        };
+                                        stateMachine.allTransition[prop +'-'+ node.id] = trasition;
+                                        flow.transitions[prop +'-'+ node.id] = trasition;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+            }
+        }
+
+    //    console.log(stateMachine.allStates);
+      //  console.log(stateMachine.allTransition);
+
+        this.runCode(stateMachine);
+    },
+
+    runCode:function(stateMachine){
+        var header = 'state.console = console;';
+        var stateAnnounce = '';
+        var trasitionAnnouce = '';
+        var exec = '';
+        for(var prop in stateMachine.flows) {
+            var flow;
+            if (stateMachine.flows.hasOwnProperty(prop)) {
+                flow = stateMachine.flows[prop];
+                var states = flow.states;
+               
+                var transitions = flow.transitions;
+
+                stateAnnounce += flow.model.code();
+                for(var prop in states) {
+                    var state;
+                    if (states.hasOwnProperty(prop)) {
+                        state = states[prop];
+                        stateAnnounce += state.code;
+                    }
+                }
+
+                for(var prop in transitions) {
+                    var transition;
+                    if (transitions.hasOwnProperty(prop)) {
+                        transition = transitions[prop].code;
+
+                        if(transition.charAt(transition.length-1) === ';'){
+                            transition = transition.substring(0,transition.length-1);
+                        }
+                        var action = function(message){
+                            console.log(message);
+                            console.log("********************");
+                        }
+
+                        transition += '.effect('+action.toString() + ');';
+                        trasitionAnnouce += transition;
+
+                    }
+                }
+
+            }
+            exec += 'var instance = new state.StateMachineInstance("instance");';
+            exec += 'state.initialise('+flow.model.name+', instance);';
+//            exec += 'state.evaluate('+flow.model.name+', instance, "move");';
+
+            var code = header+stateAnnounce+trasitionAnnouce+exec;
+            console.log(uglify.minify(code,{fromString: true}).code);
+
+            fs.writeFile('gen.js',uglify.minify(code,{fromString: true}).code);
+           // fs.writeFile('1.txt','sdfa');
+            new Function('state',uglify.minify(code,{fromString: true}).code)(statejs);
+
+        }
+
+    },
+
+    genVarName: function (node) {
+        var name = '';
+        if(node.name && node.name.lengh>0){
+            name +=  node.name;
+        }else{
+            name += '_s';
+        }
+
+        name += node.id.substring(0,5);
+
+        return name;
+
     }
 }

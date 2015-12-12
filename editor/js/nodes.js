@@ -393,6 +393,7 @@ RED.nodes = (function() {
         node.id = n.id;
         node.type = n.type;
         node.z = n.z;
+        node.bbox = n.bbox;
         if (node.type == "unknown") {
             for (var p in n._orig) {
                 if (n._orig.hasOwnProperty(p)) {
@@ -787,7 +788,8 @@ RED.nodes = (function() {
                         }
                     }
                     node.type = n.type;
-                    node._def = def;
+
+                    node.bbox = g.rect(n.bbox.x,n.bbox.y,n.bbox.w,n.bbox.h);
                     if (n.type.substring(0,7) === "subflow") {
                         var parentId = n.type.split(":")[1];
                         var subflow = subflow_map[parentId]||getSubflow(parentId);

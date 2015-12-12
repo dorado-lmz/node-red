@@ -33,8 +33,8 @@ RED.view = (function() {
 
 
     var activeSubflow = null;
-    var activeNodes = [];
     var activeLinks = [];
+    var activeNodes = [];
 
     var selected_link = null,
         mousedown_link = null,
@@ -197,6 +197,18 @@ RED.view = (function() {
         .attr('width', space_width)
         .attr('height', space_height)
         .attr('fill','#fff');
+
+    var container = document.getElementById("chart");
+
+    var scrollOffset = {top:0,left:0,top_bak:0,left_bak:0};
+    $(container).scroll(function () {
+
+        scrollOffset.top = this.scrollTop;
+        scrollOffset.left = this.scrollLeft;
+
+        scrollOffset.left_bak = scrollOffset.left;
+        scrollOffset.top_bak = scrollOffset.top;
+    });
 
     //var gridScale = d3.scale.linear().range([0,2000]).domain([0,2000]);
     //var grid = vis.append('g');
@@ -403,7 +415,6 @@ RED.view = (function() {
         RED.keyboard.add(/* - */ 189,{ctrl:true},function(){zoomOut();d3.event.preventDefault();});
         RED.keyboard.add(/* 0 */ 48,{ctrl:true},function(){zoomZero();d3.event.preventDefault();});
         RED.keyboard.add(/* v */ 86,{ctrl:true},function(){importNodes(clipboard);d3.event.preventDefault();});
-
     }
 
     function containsRect(nn){
@@ -456,21 +467,29 @@ RED.view = (function() {
     }
 
     function movingNodeOffset(node, mousePos) {
-        node.n.mouseoffsetx = mousePos[0] - mouse_offset[0];
-        node.n.mouseoffsety = mousePos[1] - mouse_offset[1];//mouse position relate to the origin of node(x,y)
+
+        console.log(scrollOffset.top);
+        node.n.mouseoffsetx = mousePos[0] - mouse_offset[0] - scrollOffset.left;
+        node.n.mouseoffsety = mousePos[1] - mouse_offset[1] - scrollOffset.top;//mouse position relate to the origin of node(x,y)
 
 
-        node.n.x += node.n.mouseoffsetx;
-        node.n.y += node.n.mouseoffsety;
+
+        scrollOffset.left = 0;
+        scrollOffset.top = 0;
+
+        node.n.x = node.n.x +node.n.mouseoffsetx;
+        node.n.y = node.n.y + node.n.mouseoffsety;
 
         node.n.bbox.x = node.n.x;
         node.n.bbox.y = node.n.y;
 
         node.n.dirty = true;
+
+        mouse_offset[0] = mousePos[0];
+        mouse_offset[1] = mousePos[1];
     }
 
     function canvasMouseMove() {
-
         mouse_position = d3.touches(this)[0]||d3.mouse(this);
         // Prevent touch scrolling...
         //if (d3.touches(this)[0]) {
@@ -572,6 +591,7 @@ RED.view = (function() {
 
         }
         else if (mouse_mode == RED.state.MOVING_ACTIVE || mouse_mode == RED.state.IMPORT_DRAGGING) {
+
             mousePos = mouse_position;
             var node;
             var i;
@@ -585,7 +605,6 @@ RED.view = (function() {
                 }
                 //node.n.x = mousePos[0]+node.dx;
                 //node.n.y = mousePos[1]+node.dy;
-
 
                 if(node.n.childNodes){
                     for(index in node.n.childNodes){
@@ -623,8 +642,7 @@ RED.view = (function() {
 
 
                // containsRect(node.n);
-                mouse_offset[0] = mousePos[0];
-                mouse_offset[1] = mousePos[1];
+
 
                 //minX = Math.min(node.n.x-node.n.w/2-5,minX);//node move border'x
                 //minY = Math.min(node.n.y-node.n.h/2-5,minY);//node move border'y
@@ -997,6 +1015,8 @@ RED.view = (function() {
         mousedown_link = null;
         mouse_mode = 0;
         mousedown_port_type = 0;
+        scrollOffset.left = scrollOffset.left_bak;
+        scrollOffset.top = scrollOffset.top_bak;
     }
 
     function portMouseDown(d,portType,portIndex) {
