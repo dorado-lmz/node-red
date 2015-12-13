@@ -311,7 +311,7 @@ RED.view = (function() {
 
         // Handle nodes dragged from the palette
         $("#chart").droppable({
-            accept:".palette_node",
+            accept:".palette_node,.palette_symbol",
             drop: function( event, ui ) {
                 d3.event = event;
 

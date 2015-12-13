@@ -18,7 +18,7 @@ RED.palette = (function() {
 
     var exclusion = ['config','unknown','deprecated'];
     var core = ['basic','subflows', 'input', 'output', 'function', 'social', 'mobile', 'storage', 'analysis', 'advanced'];
-
+    var canvas_height='38',canvas_width='120';
     var categoryContainers = {};
 
     function createCategoryContainer(category, label){
@@ -60,12 +60,37 @@ RED.palette = (function() {
         });
     }
 
+    function popOverContent(label, type, info, el) {
+        var popOverContent;
+        try {
+            var l = "<p><b>" + label + "</b></p>";
+            if (label != type) {
+                l = "<p><b>" + label + "</b><br/><i>" + type + "</i></p>";
+            }
+            popOverContent = $(l + (info ? info : $("script[data-help-name|='" + type + "']").html() || "<p>" + RED._("palette.noInfo") + "</p>").trim())
+                .filter(function (n) {
+                    return (this.nodeType == 1 && this.nodeName == "P") || (this.nodeType == 3 && this.textContent.trim().length > 0)
+                }).slice(0, 2);
+        } catch (err) {
+            // Malformed HTML may cause errors. TODO: need to understand what can break
+            // NON-NLS: internal debug
+            console.log("Error generating pop-over label for ", type);
+            console.log(err.toString());
+            popOverContent = "<p><b>" + label + "</b></p><p>" + RED._("palette.noInfo") + "</p>";
+        }
+
+        el.data('popover').setContent(popOverContent);
+    }
+
     function setLabel(type, el,label, info) {
         var nodeWidth = 82;
         var nodeHeight = 25;
         var lineHeight = 20;
         var portHeight = 10;
 
+        if(!label){
+            return;
+        }
         var words = label.split(" ");
 
         var displayLines = [];
@@ -95,29 +120,32 @@ RED.palette = (function() {
 
         el.find(".palette_port").css({top:(multiLineNodeHeight/2-5)+"px"});
 
-        var popOverContent;
-        try {
-            var l = "<p><b>"+label+"</b></p>";
-            if (label != type) {
-                l = "<p><b>"+label+"</b><br/><i>"+type+"</i></p>";
-            }
-            popOverContent = $(l+(info?info:$("script[data-help-name|='"+type+"']").html()||"<p>"+RED._("palette.noInfo")+"</p>").trim())
-                                .filter(function(n) {
-                                    return (this.nodeType == 1 && this.nodeName == "P") || (this.nodeType == 3 && this.textContent.trim().length > 0)
-                                }).slice(0,2);
-        } catch(err) {
-            // Malformed HTML may cause errors. TODO: need to understand what can break
-            // NON-NLS: internal debug
-            console.log("Error generating pop-over label for ",type);
-            console.log(err.toString());
-            popOverContent = "<p><b>"+label+"</b></p><p>"+RED._("palette.noInfo")+"</p>";
-        }
-
-        el.data('popover').setContent(popOverContent);
     }
 
     function escapeNodeType(nt) {
         return nt.replace(" ","_").replace(".","_").replace(":","_");
+    }
+
+
+    function canvas_flow(div_node,def){
+        div_node.classList.add("palette_symbol");
+        var canvas = document.createElement("canvas");
+        canvas.setAttribute("width",canvas_width);
+        canvas.setAttribute('height',canvas_height);
+        div_node.appendChild(canvas);
+        var ctx = canvas.getContext("2d");
+
+        var fun = eval(div_node.type);
+        fun(ctx,def);
+    }
+
+    function canvas_redraw(event,ui){
+        var div_node = event.target;
+        var fun = eval(div_node.type);
+
+        var $node = ui.helper[0];
+        var ctx = $("canvas",$node)[0].getContext("2d");
+        fun(ctx,div_node.def);
     }
 
     function addNodeType(nt,def) {
@@ -130,48 +158,13 @@ RED.palette = (function() {
             var category = def.category.replace(" ","_");
             var rootCategory = category.split("-")[0];
 
-            if(def.display){
-                var div_node =  $(def.display)[0];
 
-            }else{
-                var div_node = document.createElement("div");
-                div_node.style.backgroundColor = def.color;
-            }
+            var div_node = document.createElement("div");
 
             div_node.id = "palette_node_"+nodeTypeId;
             div_node.type = nt;
 
-            var label;
 
-            if (typeof def.paletteLabel === "undefined") {
-                label = /^(.*?)([ -]in|[ -]out)?$/.exec(nt)[1];
-            } else {
-                label = (typeof def.paletteLabel === "function" ? def.paletteLabel.call(def) : def.paletteLabel)||"";
-            }
-
-
-            $('<div/>',{class:"palette_label"+(def.align=="right"?" palette_label_right":"")}).appendTo(div_node);
-
-            div_node.classList.add("palette_node");
-
-
-            if (def.icon) {
-                var icon_url = (typeof def.icon === "function" ? def.icon.call({}) : def.icon);
-                var iconContainer = $('<div/>',{class:"palette_icon_container"+(def.align=="right"?" palette_icon_container_right":"")}).appendTo(div_node);
-                $('<div/>',{class:"palette_icon",style:"background-image: url(icons/"+icon_url+")"}).appendTo(iconContainer);
-            }
-
-            if (def.outputs > 0) {
-                var portOut = document.createElement("div");
-                portOut.className = "palette_port palette_port_output";
-                div_node.appendChild(portOut);
-            }
-
-            if (def.inputs > 0) {
-                var portIn = document.createElement("div");
-                portIn.className = "palette_port palette_port_input";
-                div_node.appendChild(portIn);
-            }
 
             if ($("#palette-base-category-"+rootCategory).length === 0) {
                 if(core.indexOf(rootCategory) !== -1){
@@ -188,6 +181,51 @@ RED.palette = (function() {
             }
 
             $("#palette-"+category).append(div_node);
+
+
+            var label;
+
+            if (typeof def.paletteLabel === "undefined") {
+                label = /^(.*?)([ -]in|[ -]out)?$/.exec(nt)[1];
+            } else {
+                label = (typeof def.paletteLabel === "function" ? def.paletteLabel.call(def) : def.paletteLabel)||"";
+            }
+
+            if(def.canvas) {
+                //var div_node =  $(def.display)[0];
+                div_node.def = def;
+                canvas_flow(div_node,def);
+
+            }else{
+                div_node.style.backgroundColor = def.color;
+                div_node.classList.add("palette_node");
+
+
+                $('<div/>',{class:"palette_label"+(def.align=="right"?" palette_label_right":"")}).appendTo(div_node);
+
+
+
+                if (def.icon) {
+                    var icon_url = (typeof def.icon === "function" ? def.icon.call({}) : def.icon);
+                    var iconContainer = $('<div/>',{class:"palette_icon_container"+(def.align=="right"?" palette_icon_container_right":"")}).appendTo(div_node);
+                    $('<div/>',{class:"palette_icon",style:"background-image: url(icons/"+icon_url+")"}).appendTo(iconContainer);
+                }
+
+                if (def.outputs > 0) {
+                    var portOut = document.createElement("div");
+                    portOut.className = "palette_port palette_port_output";
+                    div_node.appendChild(portOut);
+                }
+
+                if (def.inputs > 0) {
+                    var portIn = document.createElement("div");
+                    portIn.className = "palette_port palette_port_input";
+                    div_node.appendChild(portIn);
+                }
+            }
+
+
+
             div_node.onmousedown = function(e) { e.preventDefault(); };
 
             RED.popover.create({
@@ -220,7 +258,8 @@ RED.palette = (function() {
                 appendTo: 'body',
                 revert: true,
                 revertDuration: 50,
-                start: function() {RED.view.focus();}
+                start: function() {RED.view.focus();},
+                drag:function(event,ui){if(category !== 'basic'){return;}else{canvas_redraw(event,ui)}}
             });
 
             var nodeInfo = null;
@@ -231,7 +270,10 @@ RED.palette = (function() {
                 });
                 nodeInfo = marked(def.info||"");
             }
-            setLabel(nt,$(div_node),label,nodeInfo);
+            if(!def.canvas) {
+                setLabel(nt,$(div_node),label,nodeInfo);
+            }
+            popOverContent(label, nt, nodeInfo, $(div_node));
 
             var categoryNode = $("#palette-container-"+category);
             if (categoryNode.find(".palette_node").length === 1) {

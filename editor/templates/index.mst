@@ -31,7 +31,20 @@
 {{#page.css}}
 <link rel="stylesheet" href="{{.}}">
 {{/page.css}}
+<style>
+.palette_symbol{
+    cursor: move;
+    margin: 10px auto;
+    height: 38px;
+    background-position: 5% 50%;
+    background-repeat: no-repeat;
+    width: 120px;
+    background-size: contain;
+    position: relative;
+    z-index:1;
+}
 
+</style>
 </head>
 <body spellcheck="false">
 <div id="header">

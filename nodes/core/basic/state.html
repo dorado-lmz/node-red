@@ -6,13 +6,23 @@
             name: {value:""}
         },
         icon: "bridge.png",
-        display:"<div class='state-outer'></div>",
+        canvas:true,
         inputs:1,
         outputs:1,
         label: function() {
             return this.name||"start";
-        },
+        }
     });
+
+    function state(ctx){
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'black';
+        ctx.font = '12px Arial';
+        ctx.beginPath();
+        ctx.fillText("state", 50, 23);
+        ctx.terminator(10, 4, 100, 28);
+        ctx.stroke();
+    }
 </script>
 
 <script type="text/x-red" data-template-name="state">
@@ -25,10 +35,4 @@
 <script type="text/x-red" data-help-name="state">
     <p>A simple node that converts the message payloads into all lower-case characters</p>
 </script>
-<style>
-    .state-outer{
-        background:#eee;
-    }
-
-</style>
 

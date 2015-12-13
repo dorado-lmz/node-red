@@ -6,7 +6,7 @@
             name: {value:""}
         },
         eval:'div_node.style.borderRadius = "14px";div_node.style.width = "28px";',
-        display:"<div class='end-state-outer'><div class='end-state-inner'></div></div>",
+        canvas:true,
         inputs:1,
         outputs:0,
 
@@ -18,6 +18,15 @@
         h:36
 
     });
+    function end_state(ctx,def){
+        ctx.fillStyle = 'white';
+        ctx.font = '12px Arial';
+        ctx.beginPath();
+        ctx.oval(45, 4, 28, 28);
+        ctx.oval(49, 8, 20, 20);
+        // ctx.fillStyle = def.color;
+        ctx.stroke();
+    }
 </script>
 
 <script type="text/x-red" data-template-name="end_state">
@@ -30,18 +39,5 @@
 <script type="text/x-red" data-help-name="end_state">
     <p>A simple node that converts the message payloads into all lower-case characters</p>
 </script>
-<style>
-    .end-state-outer{
-        width:28px;
-        border-radius:14px;
-        background: #eeeeee;
-    }
-    .end-state-inner{
-        width:20px;
-        height:20px;
-        border-radius:10px;
-        background:#34495e;
-        margin:4px 0 0 4px;
-    }
-</style>
+
 
