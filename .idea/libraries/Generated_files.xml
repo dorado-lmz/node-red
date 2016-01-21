@@ -1,0 +1,41 @@
+<component name="libraryTable">
+  <library name="Generated files" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/editor/js/lib/underscore/underscore-compiled.js" />
+        <item url="file://$PROJECT_DIR$/editor/js/lib/flowchart-compiled.js" />
+        <item url="file://$PROJECT_DIR$/editor/js/lib/underscore/underscore-min-compiled.js" />
+        <item url="file://$PROJECT_DIR$/red/nodes/flows/index-compiled.js" />
+        <item url="file://$PROJECT_DIR$/editor/js/lib/backbone/backbone-min-compiled.js" />
+        <item url="file://$PROJECT_DIR$/red/nodes/flows/util-compiled.js" />
+        <item url="file://$PROJECT_DIR$/editor/js/lib/backbone/backbone-compiled.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/editor/js/ui/view-compiled.js" />
+      <root url="file://$PROJECT_DIR$/editor/js/ui/tab-config-compiled.js" />
+      <root url="file://$PROJECT_DIR$/editor/js/ui/editor-compiled.js" />
+      <root url="file://$PROJECT_DIR$/editor/js/ui/palette-compiled.js" />
+      <root url="file://$PROJECT_DIR$/editor/js/ui/view-compiled.js" />
+      <root url="file://$PROJECT_DIR$/editor/js/ui/tab-config-compiled.js" />
+      <root url="file://$PROJECT_DIR$/editor/js/ui/editor-compiled.js" />
+      <root url="file://$PROJECT_DIR$/editor/js/ui/palette-compiled.js" />
+      <root url="file://$PROJECT_DIR$/editor/js/main-compiled.js" />
+      <root url="file://$PROJECT_DIR$/red-compiled.js" />
+      <root url="file://$PROJECT_DIR$/editor/js/nodes-compiled.js" />
+      <root url="file://$PROJECT_DIR$/editor/js/ui/pal-compiled.js" />
+      <root url="file://$PROJECT_DIR$/editor/js/ui/pal-compiled.js" />
+      <root url="file://$PROJECT_DIR$/editor/js/main-compiled.js" />
+      <root url="file://$PROJECT_DIR$/red-compiled.js" />
+      <root url="file://$PROJECT_DIR$/editor/js/nodes-compiled.js" />
+      <root url="file://$PROJECT_DIR$/editor/js/lib/underscore/underscore-compiled.js" />
+      <root url="file://$PROJECT_DIR$/editor/js/lib/flowchart-compiled.js" />
+      <root url="file://$PROJECT_DIR$/editor/js/lib/underscore/underscore-min-compiled.js" />
+      <root url="file://$PROJECT_DIR$/red/nodes/flows/index-compiled.js" />
+      <root url="file://$PROJECT_DIR$/editor/js/lib/backbone/backbone-min-compiled.js" />
+      <root url="file://$PROJECT_DIR$/red/nodes/flows/util-compiled.js" />
+      <root url="file://$PROJECT_DIR$/editor/js/lib/backbone/backbone-compiled.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>

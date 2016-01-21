@@ -126,6 +126,7 @@ RED.nodes = (function() {
 
                     // TODO: too tightly coupled into palette UI
                 }
+
                 RED.palette.add(nt,def);
                 if (def.onpaletteadd && typeof def.onpaletteadd === "function") {
                     def.onpaletteadd.call(def);
@@ -788,8 +789,8 @@ RED.nodes = (function() {
                         }
                     }
                     node.type = n.type;
-
-                    node.bbox = g.rect(n.bbox.x,n.bbox.y,n.bbox.w,n.bbox.h);
+                    node._def = def;
+                    //node.bbox = g.rect(n.bbox.x,n.bbox.y,n.bbox.width,n.bbox.height);
                     if (n.type.substring(0,7) === "subflow") {
                         var parentId = n.type.split(":")[1];
                         var subflow = subflow_map[parentId]||getSubflow(parentId);

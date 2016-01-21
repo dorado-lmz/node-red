@@ -156,7 +156,7 @@ var RED = (function() {
     var statusEnabled = false;
     function toggleStatus(state) {
         statusEnabled = state;
-        RED.view.status(statusEnabled);
+        //RED.view.status(statusEnabled);
     }
 
     function loadEditor() {
@@ -201,6 +201,7 @@ var RED = (function() {
 
         RED.library.init();
         RED.palette.init();
+
         RED.sidebar.init();
         RED.subflow.init();
         RED.workspaces.init();

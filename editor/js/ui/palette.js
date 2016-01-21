@@ -158,13 +158,10 @@ RED.palette = (function() {
             var category = def.category.replace(" ","_");
             var rootCategory = category.split("-")[0];
 
-
             var div_node = document.createElement("div");
 
             div_node.id = "palette_node_"+nodeTypeId;
             div_node.type = nt;
-
-
 
             if ($("#palette-base-category-"+rootCategory).length === 0) {
                 if(core.indexOf(rootCategory) !== -1){
@@ -181,7 +178,6 @@ RED.palette = (function() {
             }
 
             $("#palette-"+category).append(div_node);
-
 
             var label;
 
@@ -223,8 +219,6 @@ RED.palette = (function() {
                     div_node.appendChild(portIn);
                 }
             }
-
-
 
             div_node.onmousedown = function(e) { e.preventDefault(); };
 
@@ -363,15 +357,15 @@ RED.palette = (function() {
 
     function init() {
         $(".palette-spinner").show();
-        if (RED.settings.paletteCategories) {
-            RED.settings.paletteCategories.forEach(function(category){
-                createCategoryContainer(category, RED._("palette.label."+category,{defaultValue:category}));
-            });
-        } else {
-            core.forEach(function(category){
-                createCategoryContainer(category, RED._("palette.label."+category,{defaultValue:category}));
-            });
-        }
+        // if (RED.settings.paletteCategories) {
+        //     RED.settings.paletteCategories.forEach(function(category){
+        //         createCategoryContainer(category, RED._("palette.label."+category,{defaultValue:category}));
+        //     });
+        // } else {
+        //     core.forEach(function(category){
+        //         createCategoryContainer(category, RED._("palette.label."+category,{defaultValue:category}));
+        //     });
+        // }
 
         $("#palette-search-input").focus(function(e) {
             RED.keyboard.disable();

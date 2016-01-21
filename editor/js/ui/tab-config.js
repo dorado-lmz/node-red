@@ -15,7 +15,6 @@
  **/
 RED.sidebar.config = (function() {
 
-
     var content = document.createElement("div");
     content.className = "sidebar-node-config"
 

@@ -1,11 +1,11 @@
 (function () {
     'use strict';
     /*global CanvasRenderingContext2D */
+
     var lastPostion = [0, 0];
 
-    function roundedRect(context,cornerX, cornerY, width, height, cornerRadius) {
-        if (width > 0) context.moveTo(cornerX + cornerRadius, cornerY);
-        else context.moveTo(cornerX - cornerRadius, cornerY);
+    function roundedRect(context, cornerX, cornerY, width, height, cornerRadius) {
+        if (width > 0) context.moveTo(cornerX + cornerRadius, cornerY);else context.moveTo(cornerX - cornerRadius, cornerY);
         context.arcTo(cornerX + width, cornerY, cornerX + width, cornerY + height, cornerRadius);
         context.arcTo(cornerX + width, cornerY + height, cornerX, cornerY + height, cornerRadius);
         context.arcTo(cornerX, cornerY + height, cornerX, cornerY, cornerRadius);
@@ -16,12 +16,11 @@
         }
     }
 
-    CanvasRenderingContext2D.prototype.drawRoundedRect = function(strokeStyle,fillStyle,cornerX,cornerY,width,height,cornerRadius) {
-        roundedRect(this,cornerX, cornerY, width, height, cornerRadius);
+    CanvasRenderingContext2D.prototype.drawRoundedRect = function (strokeStyle, fillStyle, cornerX, cornerY, width, height, cornerRadius) {
+        roundedRect(this, cornerX, cornerY, width, height, cornerRadius);
         //this.strokeStyle = strokeStyle;
         //this.fillStyle = fillStyle;
     };
-
 
     CanvasRenderingContext2D.prototype.process = function drawProcess(x, y, w, h) {
         this.rect(x, y, w, h);
@@ -29,13 +28,16 @@
     };
 
     CanvasRenderingContext2D.prototype.oval = function drawOval(x, y, w, h, start, end) {
-        var i, xPos, yPos, firstPoint = true;
+        var i,
+            xPos,
+            yPos,
+            firstPoint = true;
         end = end || 2 * Math.PI;
         start = start || 0.001;
 
         for (i = start; i < end; i += 0.001) {
-            xPos = (x + w / 2) - (w / 2 * Math.cos(i));
-            yPos = (y + h / 2) + (h / 2 * Math.sin(i));
+            xPos = x + w / 2 - w / 2 * Math.cos(i);
+            yPos = y + h / 2 + h / 2 * Math.sin(i);
 
             if (firstPoint) {
                 this.moveTo(xPos, yPos);
@@ -128,8 +130,9 @@
 
     CanvasRenderingContext2D.prototype.arrow = function drawArrow(startX, startY, stopX, stopY) {
         var rightAngle = Math.PI / 2,
-            // I do not fully understand this trig but it seems to work.
-            angle = Math.atan2(startY - stopY, stopX - startX) - rightAngle,
+
+        // I do not fully understand this trig but it seems to work.
+        angle = Math.atan2(startY - stopY, stopX - startX) - rightAngle,
             arrowSize = 5,
             stopX2 = stopX + 5 * Math.sin(angle),
             stopY2 = stopY + 5 * Math.cos(angle),
@@ -150,4 +153,6 @@
     CanvasRenderingContext2D.prototype.relText = function drawRelText(text, x, y) {
         this.fillText(text, x + lastPostion[0], y + lastPostion[1]);
     };
-}());
+})();
+
+//# sourceMappingURL=flowchart-compiled.js.map

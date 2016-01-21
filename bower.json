@@ -27,5 +27,9 @@
     "editor/js",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "underscore": "~1.8.3",
+    "backbone": "~1.2.3"
+  }
 }

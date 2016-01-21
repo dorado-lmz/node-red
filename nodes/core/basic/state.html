@@ -1,28 +1,43 @@
 <script type="text/javascript">
-    RED.nodes.registerType('state',{
+    RED.nodes.registerType('state', {
         category: 'basic',
         color: '#eee',
         defaults: {
-            name: {value:""}
+            name: {value: ""}
         },
         icon: "bridge.png",
-        canvas:true,
-        inputs:1,
-        outputs:1,
-        label: function() {
-            return this.name||"start";
+        canvas: true,
+        inputs: 1,
+        outputs: 1,
+        label: function () {
+            return this.name || "start";
         }
     });
-
-    function state(ctx){
+    function state(ctx) {
         ctx.lineWidth = 1;
         ctx.strokeStyle = 'black';
         ctx.font = '12px Arial';
         ctx.beginPath();
-        ctx.fillText("state", 50, 23);
-        ctx.terminator(10, 4, 100, 28);
+        ctx.fillText("state", 37, 14);
+        ctx.drawRoundedRect('blue', 'yellow', 10, 4, 80, 28, 5);
+        ctx.moveTo(10, 13);
+        ctx.lineTo(90, 13);
         ctx.stroke();
     }
+    var stateView = Backbone.View.extend({
+        el:$("#dialog-form"),
+        initialize: function () {
+            this.$el.html($("script[data-template-name='state']").html());
+        },
+        events:{
+            'click .add':'add'
+        },
+        add: function () {
+            console.log('add');
+        }
+    })
+    
+    
 </script>
 
 <script type="text/x-red" data-template-name="state">
@@ -30,9 +45,42 @@
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
+    <div class="form-row">
+        <label for="node-input-description"><i class="icon-tag"></i> Description</label>
+        <input type="text" id="node-input-description" placeholder="">
+    </div>
+    <div class="form-row">
+        <div class="tabbable">
+            <!-- Only required for left/right tabs -->
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab1" data-toggle="tab">Events</a></li>
+                <li><a href="#tab2" data-toggle="tab">Entry</a></li>
+                <li><a href="#tab3" data-toggle="tab">Exit</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab1">
+                    <p>I'm in Section 1.</p>
+                </div>
+                <div class="tab-pane" id="tab2">
+                    <p>Howdy, I'm in Section 2.</p>
+                    <table class="table">
+                    </table>
+                    <div class="btn-group">
+                            <button class="add">add</button>
+                            <button class="del">del</button>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab3">
+                    <p>Howdy, I'm in Section 2.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </script>
 
 <script type="text/x-red" data-help-name="state">
     <p>A simple node that converts the message payloads into all lower-case characters</p>
+
 </script>
 

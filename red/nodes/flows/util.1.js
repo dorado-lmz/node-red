@@ -13,21 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-
-"use strict"
 var clone = require("clone");
 var redUtil = require("../../util");
 var subflowInstanceRE = /^subflow:(.+)$/;
 var typeRegistry = require("../registry");
-
+var statejs = require("state.js");
 var uglify = require("uglify-js");
 var fs = require('fs');
 var events = require("../../events");
 var comms = require("../../comms");
-var ejs = require('ejs');
-var path = require("path");
-var StateJS = require('state.js');
-
 
 
 function diffNodes(oldNode,newNode) {
@@ -48,8 +42,6 @@ function diffNodes(oldNode,newNode) {
 
     return false;
 }
-
-
 events.on('status-changed',function(state_id,style) {
     chageStatus(state_id,style);
 });
@@ -85,8 +77,6 @@ var getNode = function (id) {
     return null;
 };
 var flow = {};
-
-var code_json = {};
 module.exports = {
 
     diffNodes: diffNodes,
@@ -101,7 +91,6 @@ module.exports = {
 
         config.forEach(function(n) {
             flow.allNodes[n.id] = clone(n);
-            console.log(n.id)
             if (n.type === 'tab') {
                 flow.flows[n.id] = n;
                 flow.flows[n.id].subflows = {};
@@ -395,47 +384,33 @@ module.exports = {
                 };
                 flow.states = {};
                 flow.transitions = {};
-                code_json.states = []; //State数据保存所有的state
                 for(var key in flow.nodes){
 
                     var node = flow.nodes[key];
 
                     if(node.type.indexOf('state')!=-1){
                         stateMachine.allStates[node.id] = node;
-                        var state;
-                        if(node.type=='start_state'){
-                             state = {name:this.genVarName(node),kind:StateJS.PseudoStateKind.Initial};
-                            //node.start = true;
-                        }else{
-                             state = {name:this.genVarName(node)};
-                        }
-                        code_json.states.push(state)
-                        //switch (node.type){
-                        //    case 'state':
-                                //node.varname = this.genVarName(node);
-                               // node.code = {};
-                               // node.code.entry = 'function(event, from, to){log("ENTER   STATE:'+node.varname+'");nodeEvents.emit("status-changed","'+node.varname+'",{fill:"red",shape:"ring",text:"now..."}); }';
-                              //  node.code.exit = 'function(event, from, to){log("LEAVE   STATE:'+node.varname+'"); nodeEvents.emit("status-changed","'+node.varname+'",{});async(to); return StateMachine.ASYNC;}';
-                            //    break;
-                            //case 'end_state':
-                            //    node.varname = this.genVarName(node);
-                            // //   node.code = 'var '+ node.varname+'=new state.State("'+node.varname+'",'+flow.model.name+');';
-                            //    break;
-                            //case 'start_state':
-                            //    node.varname = this.genVarName(node);
-                            //  //  node.code = 'var '+ node.varname +'=new state.PseudoState("'+node.varname+'",'+flow.model.name+',state.PseudoStateKind.Initial);';
-                            //    node.start = true;
-                            //    break;
+                        switch (node.type){
+                            case 'state':
+                                node.varname = this.genVarName(node);
+                                node.code = 'var '+ node.varname+'=new state.State("'+node.varname+'",'+flow.model.name+');';
+                                break;
+                            case 'end_state':
+                                node.varname = this.genVarName(node);
+                                node.code = 'var '+ node.varname+'=new state.State("'+node.varname+'",'+flow.model.name+');';
+                                break;
+                            case 'start_state':
+                                node.varname = this.genVarName(node);
+                                node.code = 'var '+ node.varname +'=new state.PseudoState("'+node.varname+'",'+flow.model.name+',state.PseudoStateKind.Initial);';
+                                node.start = true;
+                                break;
 
-                     //   }
+                        }
                         flow.states[node.id] = node;
 
                     }
                 }
                 var states = flow.states;
-
-                code_json.events = [];
-
                 for(var prop in states) {
                     var node;
                     if (states.hasOwnProperty(prop)) {
@@ -445,31 +420,18 @@ module.exports = {
                             for (var i = 0; i < numOutputs; i++) {
                                 var wires = state.wires[i];
                                 for (var j = 0; j < wires.length; j++) {
-
                                     node = stateMachine.allStates[wires[j]];
                                     if(node){
                                         var trasition = {
-                                            //start:prop,
-                                            //end:node.id,
-                                            //'guard-condition':'',
-                                            //event:'',
-                                            //action:[],
-                                            //code:state.varname+'.to'+'('+node.varname+');'
-                                            name:'fun'+ redUtil.generateId(),
-                                            from:state,
-                                            to:node
+                                            start:prop,
+                                            end:node.id,
+                                            'guard-condition':'',
+                                            event:'',
+                                            action:[],
+                                            code:state.varname+'.to'+'('+node.varname+');'
                                         };
-
-                                        var event ={
-                                            name:'fun'+ redUtil.generateId(),
-                                            from:state.varname,
-                                            to:node.varname
-                                        };
-
-                                        code_json.events.push(event);
-
-                                        //stateMachine.allTransition[prop +'-'+ node.id] = trasition;
-                                        //flow.transitions[prop +'-'+ node.id] = trasition;
+                                        stateMachine.allTransition[prop +'-'+ node.id] = trasition;
+                                        flow.transitions[prop +'-'+ node.id] = trasition;
                                     }
                                 }
                             }
@@ -484,37 +446,81 @@ module.exports = {
     //    console.log(stateMachine.allStates);
       //  console.log(stateMachine.allTransition);
 
-        this.runCode(code_json);
+        this.runCode(stateMachine);
     },
 
-    runCode:function(code_json){
+    runCode:function(stateMachine){
+        var header = 'state.console = console;';
+        var stateAnnounce = '';
+        var trasitionAnnouce = '';
+        var exec = '';
         var code;
+        for(var prop in stateMachine.flows) {
+            var flow;
+            if (stateMachine.flows.hasOwnProperty(prop)) {
+                flow = stateMachine.flows[prop];
+                var states = flow.states;
+               
+                var transitions = flow.transitions;
 
+                stateAnnounce += flow.model.code();
+                for(var prop in states) {
+                    var state;
+                    if (states.hasOwnProperty(prop)) {
+                        state = states[prop];
+                        code = state.code;
+                        if(!state.start){
+                            if(code.charAt(code.length-1) === ';'){
+                                code = code.substring(0,code.length-1);
+                            }
+                            var entry = this.createEntryAction(this.genVarName(state));
+                            var exit = this.createExitAction(this.genVarName(state));
 
-        fs.readFile(path.join(__dirname,'template.ejs'),{encoding:'utf8',flag:'r'},function(err,data){
-            if(err){
-                console.log(err);
+                            code += '.entry('+entry.toString() + ')';
+                            code += '.exit('+exit.toString()+');';
+                        }
 
-            }else{
-                var res  = ejs.render(data,{'json':code_json});
-                console.log(res);
-                new Function('StateJS','nodeEvents','log',uglify.minify(res,{fromString: true}).code)(StateJS,events,console.log);
+                        stateAnnounce += code;
+                    }
+                }
+
+                for(var prop in transitions) {
+                    var transition;
+                    if (transitions.hasOwnProperty(prop)) {
+                        transition = transitions[prop].code;
+
+                        //if(transition.charAt(transition.length-1) === ';'){
+                        //    transition = transition.substring(0,transition.length-1);
+                        //}
+
+                     //   var action = this.createAction(transitions[prop].end);
+
+                     //   transition += '.effect('+action.toString() + ');';
+                        trasitionAnnouce += transition;
+
+                    }
+                }
 
             }
+            exec += 'var instance = new state.StateMachineInstance("instance");';
+            exec += 'state.initialise('+flow.model.name+', instance);';
+//            exec += 'state.evaluate('+flow.model.name+', instance, "move");';
 
-        })
+            code = header+stateAnnounce+trasitionAnnouce+exec;
+            console.log(code);
 
-        //
-        //   code = pedding+asyn+header+eventsAnnouce+callbackAnnounce+exec;
-        //   console.log(code);
-        //
-        // //  code += "function sleep(n) {var start = new Date().getTime();while(true)  if(new Date().getTime()-start > n) break;};";
-        //
-        //   console.log(uglify.minify(code,{fromString: true}).code);
-        //
-        ////   fs.writeFile('gen.js',uglify.minify(code,{fromString: true}).code);
-        //
 
+
+            code += "function sleep(n) {var start = new Date().getTime();while(true)  if(new Date().getTime()-start > n) break;};";
+
+
+
+            console.log(uglify.minify(code,{fromString: true}).code);
+
+            fs.writeFile('gen.js',uglify.minify(code,{fromString: true}).code);
+            new Function('state','events',uglify.minify(code,{fromString: true}).code)(statejs,events);
+
+        }
 
     },
 
@@ -542,7 +548,7 @@ module.exports = {
         }
 
         name += node.id.substring(0,5);
-        node.varname = name;
+
         return name;
 
     },

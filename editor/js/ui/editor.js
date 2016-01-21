@@ -636,7 +636,8 @@ RED.editor = (function() {
             });
             $( "#dialog" ).dialog("option","buttons",buttons);
         }
-        $("#dialog-form").html($("script[data-template-name='"+type+"']").html());
+        eval("new "+type+"View();");
+       // $("#dialog-form").html($("script[data-template-name='"+type+"']").html());
         var ns;
         if (node._def.set.module === "node-red") {
             ns = "node-red";
@@ -1167,8 +1168,6 @@ RED.editor = (function() {
         $("#subflow-dialog-user-count").html(RED._("subflow.subflowInstances", {count:userCount})).show();
         $("#subflow-dialog").dialog("option","title",RED._("subflow.editSubflow",{name:subflow.name})).dialog( "open" );
     }
-
-
 
     return {
         init: function(){
