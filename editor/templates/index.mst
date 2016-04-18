@@ -27,6 +27,7 @@
 <link href="vendor/jquery/css/smoothness/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" media="screen">
 <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="vendor/vendor.css">
+<link rel="stylesheet" href="vendor/joint_chart/dist/joint_chart.css">
 <link rel="stylesheet" href="red/style.min.css">
 {{#page.css}}
 <link rel="stylesheet" href="{{.}}">
@@ -204,18 +205,31 @@
 </script>
 
 
-<script src="vendor/vendor.js"></script>
+<!-- <script src="vendor/vendor.js"></script> -->
+
+<script src="editor/vendor/jquery/js/jquery-1.11.1.min.js"></script>
+<script src="vendor/lodash/lodash.js"></script>
+<script src="vendor/backbone/backbone.js"></script>
+<script src="vendor/joint_chart/dist/joint_chart.js"></script>
+<script src="editor/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="editor/vendor/jquery/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script src="editor/vendor/jquery/js/jquery.ui.touch-punch.min.js"></script>
+<script src="editor/vendor/marked/marked.min.js"></script>
+<script src="editor/vendor/d3/d3.v3.min.js"></script>
+<script src="editor/vendor/i18next/i18next.min.js"></script>
+<script src="editor/vendor/orion/built-editor.min.js"></script>
 <script src="vendor/ace/ace.js"></script>
 <script src="vendor/ace/ext-language_tools.js"></script>
 <!--<script src="{{ asset.red }}"></script>-->
-<script src="editor/js/vectorizer.js"></script>
-<script src="editor/js/geometry.js"></script>
+
+
+
 
 <script src="editor/js/lib/flowchart.js"></script>
 
 
-
 <script src="editor/js/main.js"></script>
+<script src="editor/js/ui/myview.js"></script>
 <script src="editor/js/events.js"></script>
 <script src="editor/js/i18n.js"></script>
 <script src="editor/js/settings.js"></script>
@@ -231,15 +245,17 @@
 <script src="editor/js/ui/tabs.js"></script>
 <script src="editor/js/ui/popover.js"></script>
 <script src="editor/js/ui/workspaces.js"></script>
-<script src="editor/js/ui/view.js"></script>
+
+
+<!-- <script src="editor/js/ui/view.js"></script> -->
 <!--<script src="editor/js/ui/nodeview.js"></script>
 <script src="editor/js/ui/linkview.js"></script>
 <script src="editor/js/ui/ChartBaseView.js"></script>
 <script src="editor/js/ui/ChartView.js"></script>
 <script src="editor/js/ui/vi.js"></script>-->
 <script src="editor/js/ui/sidebar.js"></script>
-<script src="editor/js/ui/palette.js"></script>
-<!-- <script src="editor/js/ui/pal.js"></script> -->
+<!-- <script src="editor/js/ui/palette.js"></script> -->
+<script src="editor/js/ui/pal.js"></script>
 <script src="editor/js/ui/tab-info.js"></script>
 <script src="editor/js/ui/tab-config.js"></script>
 <script src="editor/js/ui/editor.js"></script>
@@ -248,6 +264,8 @@
 <script src="editor/js/ui/notifications.js"></script>
 <script src="editor/js/ui/subflow.js"></script>
 <script src="editor/js/ui/touch/radialMenu.js"></script>
+
+
 
 </body>
 </html>

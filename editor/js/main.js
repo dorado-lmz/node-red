@@ -13,6 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+
+SVGElement.prototype.getTransformToElement = SVGElement.prototype.getTransformToElement || function (toElement) {
+            return toElement.getScreenCTM().inverse().multiply(this.getScreenCTM());
+};
+ 
 var RED = (function() {
 
     var debug = true;
@@ -82,7 +87,7 @@ var RED = (function() {
             success: function(nodes) {
                 RED.nodes.import(nodes);
                 RED.nodes.dirty(false);
-                RED.view.redraw(true);
+                // RED.view.redraw(true);
                 RED.comms.subscribe("status/#",function(topic,msg) {
                     var parts = topic.split("/");
                     var node = RED.nodes.node(parts[1]);

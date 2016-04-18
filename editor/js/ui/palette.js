@@ -135,8 +135,8 @@ RED.palette = (function() {
         div_node.appendChild(canvas);
         var ctx = canvas.getContext("2d");
 
-        var fun = eval(div_node.type);
-        fun(ctx,def);
+        // var fun = eval(div_node.type);
+        // fun(ctx,def);
     }
 
     function canvas_redraw(event,ui){

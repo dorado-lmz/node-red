@@ -174,7 +174,7 @@ RED.palette = (function() {
 
     var NodeTypeView = Backbone.View.extend({
         initialize: function(option) {
-            _.bindAll(this,"canvas_redraw");
+            _.bindAll(this,"canvas_redraw","canvas_flow");
             var rootCategory = this.model.get('rootCategory');
             var category = this.model.get('category');
             var nodeTypeId = this.model.get('nodeTypeId');
