@@ -25,7 +25,7 @@ RED.tabs = (function() {
         var currentActiveTabWidth = 0;
 
         var ul = $("#"+options.id)
-        ul.addClass("red-ui-tabs");
+        ul.addClass("red-ui-tabs.js");
         ul.children().first().addClass("active");
         ul.children().addClass("red-ui-tab");
 

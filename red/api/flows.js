@@ -36,4 +36,4 @@ module.exports = {
             res.status(500).json({error:"unexpected_error", message:err.message});
         });
     }
-}
+};

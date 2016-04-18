@@ -44,7 +44,7 @@ var shortHands = {
 };
 nopt.invalidHandler = function(k,v,t) {
     // TODO: console.log(k,v,t);
-}
+};
 
 var parsedArgs = nopt(knownOpts,shortHands,process.argv,2)
 
@@ -115,10 +115,13 @@ if (parsedArgs.v) {
     settings.verbose = true;
 }
 
+
+
+//assign middleware app to server and create server
 if (settings.https) {
-    server = https.createServer(settings.https,function(req,res){app(req,res);});
+    server = https.createServer(settings.https,app);
 } else {
-    server = http.createServer(function(req,res){app(req,res);});
+    server = http.createServer(app);
 }
 server.setMaxListeners(0);
 
@@ -163,6 +166,7 @@ if (parsedArgs.userDir) {
 }
 
 try {
+    //将server和setting传递下去
     RED.init(server,settings);
 } catch(err) {
     if (err.code == "not_built") {

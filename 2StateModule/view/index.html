@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="JavaScript state machine supporting most UML 2 features">
+    <meta name="keywords" content="JavaScript, finite, state, machine, region, orthogonal, hierarchical, pseudo, final, initial, deep, shallow, history, junction, choice, FSM">
+    <meta name="author" content="Steelbreeze">
+    <title>Steelbreeze: JavaScript State Machine</title>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style/orange.css" type="text/css" />
+</head>
+<body onload="tabsModel.initialise(tabsContext); player.initialise(playerState)">
+<div id="header">
+    <div class="content">
+        <a href="/"><img id="logo" src="/images/logos/steelbreeze_logo.png" alt="Steelbreeze"/></a>
+    </div>
+</div>
+<div id="main" class="content">
+    <div class="title">
+        <a id="forkme" href="https://github.com/steelbreeze/state.js"><img src="/images/logos/github_fork.png" alt="Fork me"/></a>
+        <h1>JavaScript state machine; provides unparalleled reliability for reactive programming in JavaScript</h1>
+    </div>
+    <div class="buttonbar">
+        <a href="#" class="oneoffour white" id="overviewTab" onclick="tabsModel.evaluate('overview', tabsContext)">Overview</a>
+        <a href="#" class="oneoffour white" id="featuresTab" onclick="tabsModel.evaluate('features', tabsContext)">Features</a>
+        <a href="#" class="oneoffour white" id="examplesTab" onclick="tabsModel.evaluate('examples', tabsContext)">Examples</a>
+        <a href="#" class="oneoffour white" id="licensingTab" onclick="tabsModel.evaluate('licensing', tabsContext)">Licensing</a>
+    </div>
+    <div id="overview">
+        <div class="info left">
+            <h2>Overview</h2>
+            <p>State machines have been a mainstay of computer science theory for decades; their extensive use in embedded software is also well established. Steelbreeze state.js brings this robust programming model to JavaScript applications.</p>
+            <p>State.js provides a flexible, feature-rich state machine implementation based on UML 2 state machines with blistering performance at runtime and minimal overheads.</p>
+            <h2>Built for JavaScript</h2>
+            <img src="/images/logos/js_logo.png" alt="JavaScript Logo"/>
+            <p>Each language implementation of the state libraries has a public API that is designed to work with the language rather than being just a port from another language. As an example, the performance of state.js is achieved through pre-calculating and caching the internal method calls for transition traversal in arrays of functions at initialisation.</p>
+            <p>Documentation for the public API can be found <a href="JavaScript_API.pdf">here</a>.</p>
+            <h2>15 minutes of fame</h2>
+            <p>state.js was featured on <a href="http://radar.oreilly.com/2013/12/four-short-links-12-december-2013.html">O'Reilly Radar</a> in December 2013.</p>
+        </div>
+        <div class="info right test">
+            <h2>Why state machines?</h2>
+            <p>State machines are a powerful tool to manage an objects behaviour under complex circumstances; they are especially well suited to environments where multiple sources of events can influence an object's behaviour.</p>
+            <p>State machines react to events based the state they are currently in and the event itself. Actions are performed when entering and exiting states and during the transitions between states.</p>
+            <h2>Built for node.js</h2>
+            <img src="/images/logos/nodejs_logo.png" alt="Node.js Logo"/>
+            <p>state.js is a perfect complement to node.js; in fact, the JavaScript version was written initially for use with node.js.</p>
+            <p>The addition of state machines with node.js provides a powerful controller framework for communication protocols and the lifecycle of objects within a node server.</p>
+            <p>State.js is available as a <a href="https://npmjs.org/package/state.js">node packaged module</a>.</p>
+        </div>
+    </div>
+    <div id="features">
+        <div class="info left">
+            <h2>States</h2>
+            <p>States are the fundamental building block of a state machine; they represent a condition or situation during the life of an object. A state machine is built from states with transitions between them.</p>
+            <p>States can be: simple; composite, in which case they contain child states and pseudo states; orthogonal, in which case they contain child regions.</p>
+            <p>Final States are a special kind of state without any outbound transitions; reaching a final state means the parent region or composite state is ‘complete’.</p>
+            <p>In state.js, regions or composite states can be used as the top-level for a state machine.</p>
+            <h2>Pseudo States</h2>
+            <p>Pseudo States are transient states within the state machine graph; pseudo states will always exit immediately after they’ve been entered. Pseudo States help structure a state machine.</p>
+            <p>In state.js, there are a number of different kinds of pseudo states, each with different behaviour: Choice, Deep History, Initial, Junction, Shallow History, and Terminate.</p>
+            <p>An Initial Pseudo State is typically used as the starting state of a region or composite state.</p>
+            <h2>Transitions</h2>
+            <p>Transitions define the possible paths between states within a state machine graph. Transitions are triggered by and event and are followed if the [optionally] defined guard condition is met.</p>
+            <p>Completion transitions are a special kind of transition that are evaluated automatically after entering a state (these are mainly used as the outbound transitions from pseudo states, but can also be used from regular states).</p>
+        </div>
+        <div class="info right">
+            <h2>Regions</h2>
+            <p>Regions are the heart of any state machine; they contains the states and transitions forming a state machine graph.</p>
+            <p>In state.js, regions are commonly used as the top-level for a state machine.</p>
+            <h2>Actions</h2>
+            <p>Actions are where you define the behaviour associated with a state machine. Actions may be called when entering and exiting states as well as during the transitions between states.</p>
+            <h2>Extensibility</h2>
+            <p>The region and state classes along with the transition classes may be sub-classed and certain capabilities overridden.</p>
+        </div>
+    </div>
+    <div id="examples">
+        <h2>Example 1. Cassette player controller</h2>
+        <p>The following example shows a controller for a cassette player; the play, pause and stop buttons control the player's head and motor; take a look at the source of this page to see the state machine code. The 'flip' button just demonstrates history; when flipping back to the operational state, the last known child state is restored.</p>
+        <p>
+            <img id="imgStopped" src="/images/examples/controller_stopped.png" alt="Example machine"/>
+            <img id="imgRunning" src="/images/examples/controller_running.png" alt="Example machine"/>
+            <img id="imgPaused" src="/images/examples/controller_paused.png" alt="Example machine"/>
+            <img id="imgFlipped" src="/images/examples/controller_flipped.png" alt="Example machine"/>
+            <img id="imgFinal" src="/images/examples/controller_final.png" alt="Example machine"/>
+        </p>
+        <p>Press the buttons below to send events to the controller:</p>
+        <div class="buttonbox">
+            <a href="#" class="orange" id="play" onclick="player.evaluate('play', playerState)">Play</a>
+            <a href="#" class="orange" id="pause" onclick="player.evaluate('pause', playerState)">Pause</a>
+            <a href="#" class="orange" id="stop" onclick="player.evaluate('stop', playerState)">Stop</a>
+            <a href="#" class="orange" id="flip" onclick="player.evaluate('flip', playerState)">Flip</a>
+            <a href="#" class="orange" id="off" onclick="player.evaluate('off', playerState)">Off</a>
+        </div>
+        <h2 style="clear: left">Status:</h2>
+        <span id="head">Head: </span><br/>
+        <span id="motor">Motor: </span>
+        <h2>Sample code (the code that runs the example above)</h2>
+        <script src="https://gist.github.com/mesmo/6095854.js"></script>
+        <h2>Example 2. HTML Tabs</h2>
+        <p>The tabs used throughout the Steelbreeze website are controlled using a simple state machine, where each tab is a state whose entry action reveals the tab page and colours the tab and exit action does the reverse. Check out <a href="http://www.steelbreeze.net/scripts/tabs.js">tabs.js</a>.</p>
+    </div>
+    <div id="licensing">
+        <div class="info left">
+            <h2>Open source licensing</h2>
+            <img src="/images/logos/osi_standard_logo.png" alt="OSI Logo"/>
+            <p> Steelbreeze is a strong supporter of open source software; the open source licence is an appropriate option if you are creating an open source application under a licence compatible with <a href ="https://github.com/steelbreeze/state.js/blob/master/LICENCE_MIT.md">MIT</a>. Steelbreeze uses the <a href ="https://github.com/steelbreeze/state.js/blob/master/LICENCE_MIT.md">MIT</a> licence as it provides flexibility and protection for both the author and users of open source software.</p>
+        </div>
+        <div class="info right">
+            <h2>Commercial licensing</h2>
+            <p>A commercial licence is required if you wish to have commercial level support for state.js. Pricing for the licence will vary based on the the nature of the software you are developing and its distribution.</p>
+        </div>
+    </div>
+    <div class="buttonbar">
+        <a class="oneoftwo green" href="https://github.com/steelbreeze/state.js/archive/v5.6.5.zip"><i class="fa fa-download"></i>Get state.js v5.6.5</a>
+        <a class="oneoftwo orange" href="mailto:sales@steelbreeze.net?&amp;subject=state.js%20quote">Get a commercial quote</a>
+    </div>
+</div>
+<div id="footer">
+    <div class="content">
+        <div class="four">
+            <h3>Products &amp; Services</h3>
+            <p><a href="/state.cs">state.cs</a></p>
+            <p><a href="/state.js">state.js</a></p>
+        </div>
+        <div class="four">
+            <h3>Support</h3>
+            <p><a href="https://github.com/steelbreeze/state.js/issues">Open source</a></p>
+            <p><a>Commercial</a></p>
+        </div>
+        <div class="four">
+            <h3>Corporate</h3>
+            <p><a>About us</a></p>
+            <p><a href="/cookies.html">Cookies</a></p>
+        </div>
+        <div class="four">
+            <h3>Customers</h3>
+            <p>Clients</p>
+            <p>Testimonials</p>
+        </div>
+        <p id="copyright">Copyright &copy; 2015 Steelbreeze Limited, all rights reserved.</p>
+    </div>
+</div>
+<script type="text/javascript" src="scripts/state-5.0.0.min.js"></script>
+<script type="text/javascript" src="scripts/tabs.js"></script>
+<script type="text/javascript">
+    /* global fsm */
+    // the behaviour that the state machine orchestrates
+    function EngageHead()    { document.getElementById( "head" ).innerHTML  = "Head: engaged"; }
+    function DisengageHead() { document.getElementById( "head" ).innerHTML  = "Head: disengaged"; }
+    function StartMotor()    { document.getElementById( "motor" ).innerHTML = "Motor: running"; }
+    function StopMotor()     { document.getElementById( "motor" ).innerHTML = "Motor: stopped"; }
+
+    var playerState = new fsm.Context();
+    var player = new fsm.StateMachine("player");
+    var initial = new fsm.PseudoState("initial", player, fsm.PseudoStateKind.Initial);
+    var operational = new fsm.State("operational", player);
+    var flipped = new fsm.State("flipped", player);
+    var finalState = new fsm.FinalState("final", player);
+    var deepHistory = new fsm.PseudoState("history", operational, fsm.PseudoStateKind.DeepHistory);
+    var stopped = new fsm.State("stopped", operational);
+    var active = new fsm.State("active", operational).entry(EngageHead).exit(DisengageHead);
+    var running = new fsm.State("running", active).entry(StartMotor).exit(StopMotor);
+    var paused = new fsm.State("paused", active);
+
+    initial.to(operational).effect(DisengageHead).effect(StopMotor);
+    deepHistory.to(stopped);
+    stopped.to(running).when(function (s) { return s === "play"; });
+    active.to(stopped).when(function (s) { return s === "stop"; });
+    running.to(paused).when(function (s) { return s === "pause"; });
+    paused.to(running).when(function (s) { return s === "play"; });
+    operational.to(flipped).when(function (s) { return s === "flip"; });
+    flipped.to(operational).when(function (s) { return s === "flip"; });
+    operational.to(finalState).when(function (s) { return s === "off"; });
+
+    // add a little more behavior to adjust the buttons and graphic
+    function UpdatePage( playClass, pauseClass, stopClass, flipClass, offClass ) {
+        document.getElementById( "play" ).className = playClass;
+        document.getElementById( "pause" ).className = pauseClass;
+        document.getElementById( "stop" ).className = stopClass;
+        document.getElementById( "flip" ).className = flipClass;
+        document.getElementById( "off" ).className = offClass;
+    }
+
+    stopped.entry(function () { UpdatePage("oneoffour orange", "oneoffour white", "oneoffour white", "oneoffour orange", "oneoffour orange"); });
+    running.entry(function () { UpdatePage("oneoffour white", "oneoffour orange", "oneoffour orange", "oneoffour orange", "oneoffour orange"); });
+    paused.entry(function () { UpdatePage("oneoffour orange", "oneoffour white", "oneoffour orange", "oneoffour orange", "oneoffour orange"); });
+    flipped.entry(function () { UpdatePage("oneoffour white", "oneoffour white","oneoffour white", "oneoffour orange", "oneoffour white"); });
+    operational.exit(function () { UpdatePage("oneoffour white", "oneoffour white", "oneoffour white", "oneoffour white",  "oneoffour white"); });
+
+    stopped.entry(function () { document.getElementById( "imgStopped" ).style.display = "block"; });
+    stopped.exit(function () { document.getElementById( "imgStopped" ).style.display = "none"; });
+    running.entry(function () { document.getElementById( "imgRunning" ).style.display = "block"; });
+    running.exit(function () { document.getElementById( "imgRunning" ).style.display = "none"; });
+    paused.entry(function () { document.getElementById( "imgPaused" ).style.display = "block"; });
+    paused.exit(function () { document.getElementById( "imgPaused" ).style.display = "none"; });
+    flipped.entry(function () { document.getElementById( "imgFlipped" ).style.display = "block"; });
+    flipped.exit(function () { document.getElementById( "imgFlipped" ).style.display = "none"; });
+    finalState.entry(function () { document.getElementById( "imgFinal" ).style.display = "block"; });
+</script>
+<!-- Social -->
+<script>
+    document.write('<script src="//js.sharebutton.org/plugin/sharebutton.php?type=horizontal&u=' + encodeURIComponent(document.location.href) + '"></scr' + 'ipt>');
+</script>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-41494748-1', 'steelbreeze.net');
+    ga('send', 'pageview');
+</script>
+</body>
+</html>
