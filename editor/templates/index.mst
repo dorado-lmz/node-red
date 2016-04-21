@@ -238,8 +238,8 @@
 <script src="editor/js/ui/ChartView.js"></script>
 <script src="editor/js/ui/vi.js"></script>-->
 <script src="editor/js/ui/sidebar.js"></script>
-<script src="editor/js/ui/palette.js"></script>
-<!-- <script src="editor/js/ui/pal.js"></script> -->
+<!-- <script src="editor/js/ui/palette.js"></script>-->
+<script src="editor/js/ui/pal.js"></script>
 <script src="editor/js/ui/tab-info.js"></script>
 <script src="editor/js/ui/tab-config.js"></script>
 <script src="editor/js/ui/editor.js"></script>

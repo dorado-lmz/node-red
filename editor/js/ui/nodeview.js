@@ -314,6 +314,7 @@ var NodeView = Backbone.View.extend({
         var node = RED.view.canvas().vis.selectAll(".nodegroup");
 
         node.each(function(d,i) {
+            console.log(d);
             d.bbox = d.get('bbox');
             d._def = d.get('_def');
             d['_'] = d._def._;
@@ -341,8 +342,8 @@ var NodeView = Backbone.View.extend({
                 var thisNode = d3.select(this);
 
                 //thisNode.selectAll(".centerDot").attr({"cx":function(d) { return d.w/2;},"cy":function(d){return d.h/2}});
-                //thisNode.attr("transform", function(d) { return "translate(" + (d.x-d.w/2) + "," + (d.y-d.h/2) + ")"; });
-                that.translate(thisNode);
+                //thisNode.attr("transform", function() { return "translate(" + (d.x-d.w/2) + "," + (d.y-d.h/2) + ")"; });
+                that.translate(thisNode,d);
                 that.nodeViewUpdate(d,thisNode);
 
                 if (!showStatus || !d.status) {
@@ -383,11 +384,12 @@ var NodeView = Backbone.View.extend({
         });
 
     },
-    translate: function (thisNode) {
+    translate: function (thisNode,d) {
+
         //当处于RED.state.MOVING时，node不可以move
         //处于RED.state.MOVING时，只有判断偏移量大于阈值时，进入RED.state.MOVING_ACTIVE时，才可以move
         if (this.mouse_mode != RED.state.MOVING) {
-            thisNode.attr("transform", function (d) {
+            thisNode.attr("transform", function () {
                 return "translate(" + (d.x + (d.mouseoffsetx | 0)) + "," + (d.y + (d.mouseoffsety | 0)) + ")";
             });
         }

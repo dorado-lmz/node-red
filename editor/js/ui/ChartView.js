@@ -256,8 +256,8 @@ var ChartView = ChartBaseView.extend({
                     node.ox = node.x;
                     node.oy = node.y;
                 }
-                node.x = mousePos[0]+node.dx;
-                node.y = mousePos[1]+node.dy;
+                node.x = mousePos[0]+node.dx||0;
+                node.y = mousePos[1]+node.dy||0;
 
                 node.dirty = true;
 
@@ -302,13 +302,13 @@ var ChartView = ChartBaseView.extend({
                 minX = Math.min(node.x-node.w/2-5,minX);//node move border'x
                 minY = Math.min(node.y-node.h/2-5,minY);//node move border'y
             }
-            //if (minX !== 0 || minY !== 0) {
-            //    for (i = 0; i<moving_set.length; i++) {
-            //        node = moving_set[i];
-            //        node.x -= minX;
-            //        node.y -= minY;
-            //    }
-            //}
+            if (minX !== 0 || minY !== 0) {
+                for (i = 0; i<moving_set.length; i++) {
+                    node = moving_set[i];
+                    node.x -= minX;
+                    node.y -= minY;
+                }
+            }
             if (d3.event.shiftKey && moving_set.length > 0) {
                 var gridOffset =  [0,0];
                 node = moving_set[0];
